@@ -1,10 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Array {
+public class Array_1 {
     public static void main(String[] args) {
-        System.out.println("HEllo");
-        System.out.println("Starting Array");
+        System.out.println("Array");
 
         //* Declare Array
         //elementType[] arrayRefVar;
@@ -28,6 +27,12 @@ public class Array {
 
         //length
         System.out.println(myNum.length);
+
+        //sort
+        java.util.Arrays.sort(myNum); // Sort the whole array
+
+        //parallel sort
+        java.util.Arrays.parallelSort(myNum, 1, 3); // Sort part of the array
 
         //Clone Array
         int[] sourceArray = {2, 3, 1, 5, 10};
@@ -61,6 +66,12 @@ public class Array {
             }
         }
         System.out.println("Index: " + indexOfMax + " Max Number: " + max);
+
+        //It will increase to 1 as default is 0 in ArrayList but not in Primitive types obj [int char double flot bit...]
+        int[] xxx=new int[5];
+        System.out.println(xxx[0]);
+        xxx[0]++;
+        System.out.println(xxx[0]);
 
         //Randon Suffle
         int temp;
@@ -116,13 +127,13 @@ public class Array {
             System.out.println(i);
         }
 
-        //Calling method with parameter array
+        //7.4 Calling method with parameter array
         printArray(new int[]{3, 1, 2, 6, 4, 2});
 
-        //Reverse Array
+        //7.5 Reverse Array
         reverse(new int[]{3, 1, 2, 6, 4, 2});
 
-        //Generate 20 char Array and count of each char
+        //7.6 Generate 20 char Array and count of each char
             //From (char) 97 small char a starting to 97+26
         char[] chars=createArray(20);
         System.out.println(chars);
@@ -130,26 +141,35 @@ public class Array {
             //Print 5 at a time
         displayCount(counts);
 
-        //Change method Array
+        //7.7 Change method Array
         int[] xoo={1,2,4};
         changeArray(xoo);
         System.out.println(xoo[0]);//1
         System.out.println(xoo[1]);//15
 
         //7.8 elips
-        ellipsis(1,2,3,4,5);//here z is array
+        ellipsis(1,2,3,4,5);//here obj z is array of int type
 
+        //7.9 BinarySearch
+        System.out.println(bsearch(new int[] {1,2,4,6,7,8,9,11,13,16,167},2)); //Replace (low + high) / 2 with (-low + high) / 2 + low
 
+        //java.util.Arrays.toString(list)  Arrays.equals(i,j) Arrarys.binarySearch(int[] list,num) Arrays.fill(list,0,2,6);//partial change
+
+        //Q> Game: Eight Queens. Place 8 queen in 8*8 board (no kill position)
     }
-    //printArray method
+
+    ////////Methods
+
+
+    //7.4 printArray method
     public static void printArray(int[] array){
         for(int i:array) System.out.println(i);
     }
 
-    //ReturnReverse
+    //7.5 ReturnReverse
     int[] rR=returnReverse(new int[]{3, 1, 2, 6, 4, 2});
 
-    //Reverse Array
+    //7.5 Reverse Array
     public static void reverse(int[] list){
         for(int i=0;i<list.length/2;i++){   //(int i=0,j=list.length-1; i<j;i++,j--)
             int temp=list[i];
@@ -158,7 +178,7 @@ public class Array {
         }
     }
 
-    //ReturnReverse
+    //7.5 ReturnReverse
     public static int[] returnReverse(int[] list){
         int[] result=new int[list.length];
         for(int i=0,j=result.length-1; i<list.length;i++,j--){
@@ -167,7 +187,7 @@ public class Array {
         return result;
     }
 
-    //Create CharArry and then Count repetative char and then print It
+    //7.6 Create CharArry and then Count repetative char and then print It
     public static char[] createArray(int len){
         char[] chars=new char[len];
         for(int i=0;i<chars.length;i++){
@@ -189,7 +209,7 @@ public class Array {
         return counts;
     }
 
-    //Change method Array
+    //7.7 Change method Array
     public static void changeArray(int[] x){
         x[1]=15;
         int[] y=new int[x.length];
@@ -203,4 +223,19 @@ public class Array {
         System.out.println(b);
         //z[0]=3 z[1]=4;
     }
+
+    //7.9 BSearch with While Loop
+    public static int bsearch(int[] list,int num){
+        int low=0;
+        int high=(list.length)-1;
+
+        while (high >=low) {
+            int mid = (low+high)/2;
+            if (list[mid] == num) return mid;
+            else if (num > list[mid]) low = mid + 1;
+            else high = mid - 1;
+        }
+        return -low-1;
+    }
+
 }
