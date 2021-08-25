@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StartingBasics {
+public class StartingBasics_0 {
     public static void main(String[] args){
         System.out.println("ArrayList/ Read Input / If..Else / For /For Each / While / Method ");
 

@@ -3,6 +3,7 @@ public class Recursive_3 {
         System.out.println("Recursion....");
         //One or more base cases (the simplest case) are used to stop recursion.
         // Every recursive call reduces the original problem, bringing it increasingly close to a base case until it becomes that case.
+        //In general, recursion can be used to solve the inherent recursive problems such as Tower of Hanoi, recursive directories, and Sierpinski triangles.
 
         //3.1 Factorial 0!=1;2!=2*1*1
         System.out.println("Factorial of 3 is: "+factorial(3));
@@ -29,11 +30,23 @@ public class Recursive_3 {
         System.out.println("Index: "+indexf+" : "+previous); //8
 
         //3.6 Print and learn with recursion
-        remethodPrint(5); //5+4+3+2+1+0+1+2+3+4+5
+        reMethodPrint(5); //5+4+3+2+1+0+1+2+3+4+5
 
-        //3.7
+        //3.7 // it's a tail recursion // isPalendrom
+            // A tail-recursive method has no pending operations after a recursive call.
         System.out.println(isPalindrome("mom"));
         System.out.println(isPalindromeAdvance("mom",0,"mom".length()-1));
+
+        //3.8 Recursion sort
+        int[] x={4,2,1,5,1,0,5};
+        recursiveSort(x,0,7);
+
+        //3.9 BinarySearch with recursion
+        int[] lst = {1, 2, 3, 5, 6, 8};
+        System.out.println(bsearch(lst,6,0,lst.length-1));
+
+        //Factorial with Tail Recursion // auxiliary method it will call again the same method
+        System.out.println(factorialTailR(4));
 
 
     }
@@ -74,17 +87,17 @@ public class Recursive_3 {
     }
 
     //3.6 Print with rec
-    public static void remethodPrint(int num){
+    public static void reMethodPrint(int num){
         if(num>0){
             System.out.print(num+"+");
-            remethodPrint(num-1);
+            reMethodPrint(num-1);
             if(num==5) System.out.print(num);
             else System.out.print(num+"+");
         }
         else System.out.print("0+");
     }
 
-    //3.7 Palindrome
+    //3.7 Palindrome //it's a tail recursion
     public static boolean isPalindrome(String x) {
         //System.out.println(x);
         if (x.length() == 1 || x.length() == 0) {
@@ -110,5 +123,57 @@ public class Recursive_3 {
             return isPalindromeAdvance(s, low + 1, high-1 );
         }
     }
+
+    //3.8 Recursion Sort
+    public static void recursiveSort(int[] list,int low,int high){
+        if(low<high) {
+            int min=list[low];
+            int minIndex=low;
+            for (int i = low + 1; i <high;i++){
+                if(list[i]<min){
+                    min=list[i];
+                    minIndex=i;
+                }
+            }
+            list[minIndex]=list[low];
+            list[low]=min;
+
+            recursiveSort(list,low+1,high);
+        }
+    }
+
+    //3.9 Bsearch recursive
+    public static int bsearch(int[] list,int num,int low,int high) {
+        int mid = (low + high) / 2;
+        if (low >= high) {
+            System.out.println("Not present");
+            return -low-1;
+        }
+        if (list[mid] == num) {
+            System.out.println("Got the num");
+            return list[mid];
+        }else if (num > list[mid]) {
+            return bsearch(list, num, mid + 1, high);
+        } else {
+            return bsearch(list, num, low, mid - 1);
+        }
+    }
+
+    //3.10 ComputeFactorialTailRecursion
+    public static int factorialTailR(int num){
+        return factorialTailR(num,1);
+    }
+    public static int factorialTailR(int num,int result) {
+        if (num == 1) {
+            return result;
+        } else {
+            return factorialTailR(num - 1, num * result);
+        }
+    }
+
+    //Fibonaci series with Tail REcursion
+
+    //String permutation
+
 
 }

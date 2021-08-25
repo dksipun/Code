@@ -1,37 +1,44 @@
 public class QuickTest {
     public static void main(String[] args){
-        System.out.println("Quick test small code");
-        String x="momm";
-        //System.out.println(x);
-        //System.out.println(x.substring(0,x.length()));
+        int num=7;
+        String w="malyalam";
+        //System.out.println(f(num));
+        //System.out.println(facto(5,1));
+        System.out.println(pali(w,0,w.length()-1));
 
-        System.out.println(isPalindromeAdvance(x,0,x.length()-1));
     }
-    public static boolean isPalindrome(String x){
-        //System.out.println(x);
-        if(x.length()==1 || x.length()==0) {
-            return true;
+    public static int f(int num){
+        System.out.println("Fibo");
+        int firstValue=0;
+        int secondValue=1;
+        int result=0;
+
+        for(int i=1;i<=num;i++){
+            result=firstValue+secondValue;
+            firstValue=secondValue;
+            secondValue=result;
         }
-        else if(x.split("")[0] .equals (x.split("")[x.length()-1])){
-            return isPalindrome(x.substring(1,x.length()-1));
-            }
-        else {
-            System.out.println(x.split("")[0]+" : "+x.split("")[x.length()-1]);
-            return false;
-        }
+        return result;
     }
 
-    public static boolean isPalindromeAdvance(String s,int low,int high){
-        if (high <= low){
-            return true;
-        }
-        else if((s.charAt(low) != s.charAt(high))) {
-            System.out.println(s.charAt(low)+" : "+s.charAt(high));
-            return false;
+    public static int facto(int num,int result){
+        if(num==1){
+            return result;
         }
         else{
-            return isPalindromeAdvance(s, low + 1, high-1 );
+            return facto(num-1,result*num);
         }
     }
 
+    public static boolean pali(String word,int fast,int last){
+        if(fast>=last){
+            System.out.println("Palindrom");
+            return true;
+        }else if(word.charAt(fast) != word.charAt(last)){
+            System.out.println("Not Palindrom");
+            return false;
+        }else {
+            return pali(word,fast+1,last-1);
+        }
+    }
 }
