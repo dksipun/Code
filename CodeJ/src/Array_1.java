@@ -181,7 +181,8 @@ public class Array_1 {
     //7.5 ReturnReverse
     public static int[] returnReverse(int[] list){
         int[] result=new int[list.length];
-        for(int i=0,j=result.length-1; i<list.length;i++,j--){
+        for(int i=0,j=result.length-1; i<list.length/2;i++,j--){
+            result[i]=list[j];
             result[j]=list[i];
         }
         return result;

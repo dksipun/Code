@@ -48,6 +48,8 @@ public class StartingBasics_0 {
         System.out.println(numbers);
         System.out.println(list);
     }
+
+    //Methods HEre
     public static void printList(ArrayList l){
         for(Object i:l){
             System.out.println(i);

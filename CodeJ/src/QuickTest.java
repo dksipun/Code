@@ -1,44 +1,55 @@
-public class QuickTest {
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class QuickTest{
     public static void main(String[] args){
-        int num=7;
-        String w="malyalam";
-        //System.out.println(f(num));
-        //System.out.println(facto(5,1));
-        System.out.println(pali(w,0,w.length()-1));
+        System.out.println("Hello");
 
-    }
-    public static int f(int num){
-        System.out.println("Fibo");
-        int firstValue=0;
-        int secondValue=1;
-        int result=0;
+        double[] xx=new double[3];
+        int[] xxx;
+        xxx= new int[3];
+        int[] tt=new int[3];
+        int t1=0,t3=4,t4=2;
 
-        for(int i=1;i<=num;i++){
-            result=firstValue+secondValue;
-            firstValue=secondValue;
-            secondValue=result;
-        }
-        return result;
-    }
+        Scanner input=new Scanner(System.in);
+        //String x=input.nextLine();
+        System.out.println("");
 
-    public static int facto(int num,int result){
-        if(num==1){
-            return result;
-        }
-        else{
-            return facto(num-1,result*num);
-        }
-    }
+        ArrayList<Integer> list=new ArrayList<>();
 
-    public static boolean pali(String word,int fast,int last){
-        if(fast>=last){
-            System.out.println("Palindrom");
-            return true;
-        }else if(word.charAt(fast) != word.charAt(last)){
-            System.out.println("Not Palindrom");
-            return false;
+        int a=4;
+        if(a>5){
+            System.out.println("Gretter");
         }else {
-            return pali(word,fast+1,last-1);
+            System.out.println("Smaller");
         }
+
+        int[] num={1,3,5,6,7,8};
+        for(int i=0;i<num.length;i++){
+            //System.out.println(num[i]);
+            list.add(num[i]);
+            //list.get(i);
+        }
+        for(int i:num){
+            //System.out.println(i);
+        }
+        System.out.println(list);
+        int i=0;
+        while (i<list.size()){
+            //System.out.println(list.get(i));
+            i+=1;
+        }
+
+        printList(list);
+        System.out.println(returnNum());
+
+    }
+    public static void printList(ArrayList x){
+        for(Object i:x){
+            System.out.println(i);
+        }
+    }
+    public static int returnNum(){
+        return 10;
     }
 }
