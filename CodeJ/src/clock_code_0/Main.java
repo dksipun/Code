@@ -2,7 +2,7 @@ package clock_code_0;
 
 import java.util.Timer;
 
-public class Clock {
+public class Main {
     public static void main(String[] args){
         //StopWatch wallClock=new StopWatch();
         ClockDigital sipunLearnClock=new ClockDigital(3,3,25);

@@ -19,13 +19,13 @@ public class ClockDigital {
 
     public void advance(){
         this.sec++;
-        if(this.sec >=60){
+        if(this.sec >=59){
             this.sec=0;
             this.min++;
-            if(this.min>=60){
+            if(this.min>=59){
                 this.min=0;
                 this.hours++;
-                if (this.hours>=24){
+                if (this.hours>=23){
                     this.hours=0;
                 }
             }
