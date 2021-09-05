@@ -9,6 +9,7 @@ public class MAinProgram {
 
         GradeRegister register = new GradeRegister();
 
+        System.out.println("<-------- Object in an Instance variable");
         UserInterface ui = new UserInterface(register, scanner);
         ui.start();
     }

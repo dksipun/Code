@@ -1,0 +1,506 @@
+public class YourFirstAccount {
+
+    public static void main(String[] args) {
+
+        // creating object sipunAccount using Constructor: Account("Sipun",100.0)
+        Account sipunAccount = new Account("Sipun",100.0);
+        sipunAccount.deposit(20.0);
+        sipunAccount.withdrawal(10.0);
+        System.out.println(sipunAccount);
+        System.out.println(sipunAccount.saldo());
+        System.out.println(sipunAccount.ownerName());
+        Account spiAccount=new Account("Spider",500.0);
+        System.out.println(spiAccount);
+
+        //Adding obj to a List
+        ArrayList<Account> accountlist=new ArrayList<>();
+        accountlist.add(sipunAccount);
+        accountlist.add(spiAccount);
+        System.out.println(accountlist);
+        accountlist.add(new Account("kris",999.99));
+        System.out.println(accountlist);
+        System.out.println(accountlist.get(2).ownerName());
+    }
+}
+-----
+public class Account {
+
+	//instance variables
+	//The keyword private means that the variables are "hidden" inside the object. This is known as encapsulation.
+    private double balance;
+    private String owner;
+
+    //Same as Class Name | Constructor
+    public Account(String owner, double balance) {
+        this.balance = balance;
+        this.owner = owner;
+    }
+
+    //Object's methods
+    public void deposit(double amount) {
+    //amount is parameter
+        this.balance = this.balance + amount;
+    }
+
+    public void withdrawal(double amount) {
+        this.balance = this.balance - amount;
+    }
+
+    public double saldo() {
+        return this.balance;
+    }
+
+    public String ownerName(){ return this.owner;}
+
+    @Override
+    public String toString() {
+        return this.owner + " balance: " + this.balance;
+    }
+}
+
+Output:
+Sipun balance: 110.0
+110.0
+Sipun
+Spider balance: 500.0
+[Sipun balance: 110.0, Spider balance: 500.0]
+[Sipun balance: 110.0, Spider balance: 500.0, kris balance: 999.99]
+kris
+
+//Split, Read Lines and store value using split
+System.out.println("Enter the person details separated by a comma, e.g.: Randall,2");
+while (true) {
+    System.out.print("Enter the details, empty will stop: ");
+    String details = scanner.nextLine();
+    if (details.isEmpty()) {
+        break;
+    }
+
+    String[] parts = details.split(",");
+    String name = parts[0];
+    int age = Integer.valueOf(parts[1]);
+    persons.add(new Person(name, age));
+}
+
+//Multiple constructor parameters
+
+
+//File and Reading data
+	import java.util.Scanner;
+	import java.nio.file.Paths;
+	ArrayList<String> lines = new ArrayList<>(); <- We can add in list what we read from line
+
+	try(Scanner read = new Scanner(Paths.get("file.txt"))){
+		while(read.hasNextLine()){
+			String line=read.nextLine();
+			System.out.println(line)
+			//lines.add(line)
+		}
+	} cache(Exception e){
+		System.out.println("Error: "+ e.getMessage());
+	}
+
+* Create Object Person from reading File and Store in a list
+public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Filename:");
+        String file = scan.nextLine();
+		ArrayList<Person> records = readRecordsFromFile(file);
+		System.out.println("Persons: " + records.size());
+        System.out.println("Persons:");
+        for (Person person : records) {
+            System.out.println(person);
+        }
+-----
+public static ArrayList<Person> readRecordsFromFile(String file) {
+        ArrayList<Person> persons = new ArrayList<>();
+        try(Scanner readFile=new Scanner(Paths.get(file))){
+            while (readFile.hasNextLine()){
+                String[] line=readFile.nextLine().split(",");
+                persons.add(new Person(line[0],Integer.valueOf(line[1])));
+            }
+        }catch (Exception e){
+            System.out.println("Error: "+e.getMessage());
+        }
+        return persons;
+    }
+
+
+// Multiple Classes | Clock Example
+
+Clock clock = new Clock();
+
+while (true) {
+    System.out.println(clock);
+    clock.advance();
+}
+-----
+public class ClockHand {
+    private int value;
+    private int limit;
+
+    public ClockHand(int limit) {
+        this.limit = limit;
+        this.value = 0;
+    }
+
+    public void advance() {
+        this.value = this.value + 1;
+
+        if (this.value >= this.limit) {
+            this.value = 0;
+        }
+    }
+
+    public int value() {
+        return this.value;
+    }
+
+    public String toString() {
+        if (this.value < 10) {
+            return "0" + this.value;
+        }
+
+        return "" + this.value;
+    }
+}
+-----
+public class Clock(){
+	private HandClock seconds;
+	private HandClock minutes;
+	private HandClock hours;
+
+	public Clock(){
+		this.seconds(60);
+		this.hours(24);
+		this.minutes(60);
+	}
+
+	public void advance(){
+		this.second.advance();
+		if(this.second==0){
+			this.minutes.advance();
+			if(this.minutes==0){
+				this.hours.advance();
+			}
+		}
+	}
+
+	public String toString(){
+		return hours+":"+minutes+":"+seconds;
+	}
+}
+
+//Constructor Overloading (this(name, 5);)
+
+	public Person(String name) {
+	        this.name = name;
+	        this.age = 0;
+	        this.weight = 0;
+	        this.height = 0;
+	    }
+
+	public Person(String name, int age) {
+	    this.name = name;
+	    this.age = age;
+	    this.weight = 0;
+	    this.height = 0;
+	}
+
+	public Person(String name) {
+    	this(name, 0);
+    	//here the code of the second constructor is run, and the age is set to 0
+	}
+	-----
+	public static void main(String[] args) {
+	    Person paul = new Person("Paul", 24);
+	    Person ada = new Person("Ada");
+
+	    System.out.println(paul);
+	    System.out.println(ada);
+	}
+
+//Method Overloading [Example Grow older with specific value, else it will take it's own defined value ] public string toString() <- Example
+	public void growOlder() {
+	    this.age = this.age + 1;
+	}
+
+	public void growOlder(int years) {
+	    this.age = this.age + years;
+	}
+
+//Primitive and reference variables
+
+	int value = 10; <- value: Primitive variable
+	System.out.println(value);
+
+	Name luke = new Name("Luke"); <-luke: Reference variable
+	System.out.println(luke);
+
+	* Name@4aa298b7 tells us that the given variable is of type Name and its identifier is 4aa298b7
+	we can overload this using
+	public string toString(){
+		return this.name;
+	}
+
+	* Java has 8 different primitive variables:
+	boolean (a truth value: either true or false)
+	byte (a byte containing 8 bits, between the values -128 and 127)
+	char (a 16-bit value representing a single character)
+	short (a 16-bit value that represents a small integer, between the values -32768 and 32767)
+	int (a 32-bit value that represents a medium-sized integer, between the values -231 and 231-1)
+	long (a 64-bit value that represents a large integer, between values -263 and 263-1)
+	float (a floating-point number that uses 32 bits)
+	double (a floating-point number that uses 64 bits)
+
+//Exception Nullpoint Raise
+	linesList=null;
+        //lines is null
+        System.out.println(lines.size());
+        //Error out of bound
+        System.out.println(lines.get(lines.size()+1));
+
+//Object as object variable
+ Example:
+ 	SimpleDate date = new SimpleDate(1, 1, 780);
+	Person muhammad = new Person("Muhammad ibn Musa al-Khwarizmi", date);
+	Person pascal = new Person("Blaise Pascal", 19, 6, 1623);
+
+	System.out.println(muhammad);
+	System.out.println(pascal);
+->
+Muhammad ibn Musa al-Khwarizmi, born on 1.1.780
+Blaise Pascal, born on 19.6.1623
+---
+ public class SimpleDate {
+    private int day;
+    private int month;
+    private int year;
+
+    public SimpleDate(int day, int month, int year) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+    }
+
+    public int getDay() {
+        return this.day;
+    }
+
+    public int getMonth() {
+        return this.month;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
+
+    @Override
+    public String toString() {
+        return this.day + "." + this.month + "." + this.year;
+    }
+}
+-----
+public class Person {
+    private String name;
+    private SimpleDate birthday;
+    private int weight = 0;
+    private int length = 0;
+
+    public Person(String name, SimpleDate date) {
+    	this.name = name;
+    	this.birthday = date;
+	}
+
+	public Person(String name, int day, int month, int year) {
+    	this.name = name;
+    	this.birthday = new SimpleDate(day, month, year);
+	}
+
+	public String toString() {
+    	return this.name + ", born on " + this.birthday;
+	}
+}
+-----
+
+//(object.olderThan(objectGivenAsParameter))
+
+	Person muhammad = new Person("Muhammad ibn Musa al-Khwarizmi", 1, 1, 780);
+	Person pascal = new Person("Blaise Pascal", 19, 6, 1623);
+
+	if (muhammad.olderThan(pascal)) {  //  same as muhammad.olderThan(pascal)==true
+	    System.out.println(muhammad.getName() + " is older than " + pascal.getName());
+	} else {
+	    System.out.println(muhammad.getName() + " is not older than " + pascal.getName());
+	}
+-----
+ public boolean olderThan(Person compared) {
+        if (this.birthday.before(compared.getBirthday())) {
+            return true;
+        }
+        return false;
+-----
+public boolean before(SimpleDate compared) {
+        // first compare years
+        if (this.year < compared.year) {
+            return true;
+        }
+
+        if (this.year > compared.year) {
+            return false;
+        }
+
+        // years are same, compare months
+        if (this.month < compared.month) {
+            return true;
+        }
+
+        if (this.month > compared.month) {
+            return false;
+        }
+
+        // years and months are same, compare days
+        if (this.day < compared.day) {
+            return true;
+        }
+
+        return false;
+    }
+
+//Object as a method
+public Counter {
+    private int value;
+
+    // example of using multiple constructors:
+    // you can call another constructor from a constructor by calling this
+    // notice that the this call must be on the first line of the constructor
+    public Counter() {
+        this(0);
+    }
+
+    public Counter(int initialValue) {
+        this.value = initialValue;
+    }
+
+    public void increase() {
+        this.value = this.value + 1;
+    }
+
+    public String toString() {
+        return "value: " + value;
+    }
+
+    public Counter clone() {
+        // create a new counter object that receives the value of the cloned counter as its initial value
+        Counter clone = new Counter(this.value);
+
+        // return the clone to the caller
+        return clone;
+    }
+}
+-----
+	Counter counter = new Counter();
+	counter.increase();
+	counter.increase();
+
+	System.out.println(counter);         // prints 2
+
+	Counter myClone = counter.clone();
+
+	System.out.println(counter);         // prints 2
+	System.out.println(myClone);          // prints 2
+
+	counter.increase();
+	counter.increase();
+	counter.increase();
+	counter.increase();
+
+	System.out.println(counter);         // prints 6
+	System.out.println(myClone);          // prints 2
+
+	myClone.increase();
+
+	System.out.println(counter);         // prints 6
+	System.out.println(myClone);          // prints 3
+
+=== Another Example:
+public class Factory {
+    private String make;
+
+    public Factory(String make) {
+        this.make = make;
+    }
+
+    public Car procuceCar() {
+        return new Car(this.make);
+    }
+}
+
+//Object on a list and list as part of an Object
+
+import java.util.ArrayList;
+
+public class MessagingService {
+    private ArrayList<Message> msgList;
+
+    public MessagingService(){
+        this.msgList=new ArrayList<>();
+    }
+
+    public void add(Message message){
+        if(message.getContent().length()<=280){
+            this.msgList.add(message);
+        }
+    }
+
+    public ArrayList<Message> getMessages() {
+        return msgList  ;
+    }
+}
+-----
+
+import java.util.Objects;
+
+public class Message {
+
+    private String sender;
+    private String content;
+
+    public Message(String sender, String content) {
+        this.sender = sender;
+        this.content = content;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String toString() {
+        return this.sender + ": " + this.content;
+    }
+
+    // created using the "insert code" feature of NetBeans
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Message other = (Message) obj;
+        if (!Objects.equals(this.sender, other.sender)) {
+            return false;
+        }
+        if (!Objects.equals(this.content, other.content)) {
+            return false;
+        }
+        return true;
+    }

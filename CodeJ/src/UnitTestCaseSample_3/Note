@@ -1,0 +1,25 @@
+-> Indent your code properly and find out if there are any missing parentheses.
+-> Verify that the variables used are correctly named.
+-> Test the program flow with different inputs and find out the sort of input that causes the program to not work as desired. If you received an error in the tests, the tests may also indicate the input used.
+-> Add print commands to the program in which you print out the values of the variables used at various stages of the program's execution.
+-> Verify that all variables you are using are initialized. If they aren't, a NullPointerException error will occur.
+-> If your program causes an exception, you should definitely pay attention to the stack trace associated with the exception, which is the list of method calls that resulted in the situation that caused the exception.
+-> Learn how to use the debugger.
+
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+* The assertEquals method provided by the JUnit test framework is then used to check the value. The method is imported from the Assert class with the import Static command
+*  Each test method should have an "annotation" @ Test. This tells the JUnit test framework that this is an executable test method.
+
+Errors:
+
+Exception in thread "main" ...
+      at Program.main(Program.java:15)
+      										-> says that the error occurred at line number 15 in the Program.java file.
+
+NoSuchElementException
+IndexOutOfBoundsException
+NullPointerException
+java.lang.AssertionError:
+java.lang.AssertionError: IndexOutOfBoundsException:
