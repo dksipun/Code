@@ -4,7 +4,7 @@ IMP
 
 	* Instance variable/ Object Variable: Ex:	private String owner;
 
-	* method/ Object method
+	* method/ Object method: Methods in Java can be divided into two groups, based on whether they have the static modifier or not. Methods without the static modifier are instance methods. Methods with the static modifier are class methods.
 public void setHeight(int height) {
     this.height = height;
 }
