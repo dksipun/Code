@@ -1,4 +1,4 @@
-package ui_interface_1;
+package ui_Class_1;
 
 import java.util.Scanner;
 

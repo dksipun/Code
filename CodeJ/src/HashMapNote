@@ -1,0 +1,104 @@
+HashMap
+
+HashCode();
+
+
+HashMap<Ref_variable,Ref_variable> var=new HashMap<>();
+
+var.put(“Sipun”,”123456”);
+
+Sustem.out.println( var.get(“Sipun”));
+
+var.remove("Sipun");
+
+For get Keys: keySet()
+For get values: values()
+
+For Each Loop on HAshMap: keySet() method
+for(String bookTitle : this.directory.keySet()) {
+        if(!bookTitle.contains(titlePart)) {
+            continue;
+        }
+
+Create ArrayList in the Value of Keys:
+public void add(String word, String translation){
+        if(disconary.containsKey(word)){
+            disconary.get(word).add(translation);
+        }
+        else {
+            disconary.put(word,new ArrayList<>());
+            ArrayList<String> temp=disconary.get(word);
+            temp.add(translation);
+        }
+    }
+Print:
+public ArrayList<String> translate(String word){
+        if(this.disconary.containsKey(word)){ return this.disconary.get(word);}
+        return new ArrayList<>();
+    }
+Remove:
+    public void remove(String word){
+        if(this.disconary.containsKey(word)){
+            this.disconary.remove(word);
+            disconary.put(word,new ArrayList<>());
+        }
+    }
+
+=============== IMP [ .equals  and HashCode()]
+
+HashMap<Book, String> borrowers = new HashMap<>();
+
+borrowers.put(new Book("Test Driven Development", 1999, "..."), "Arto");
+
+System.out.println(borrowers.get(new Book("Test Driven Development", 1999, "...")));   —> Null without HashCode in our Programm
+
+	HashCode: For number no need convert, Only required for String !!!
+public int hashCode() {
+    if (this.name == null) {
+        return this.published;
+    }
+
+    return this.published + this.name.hashCode();
+}
+Now: System.out.println(borrowers.get(new Book("Test Driven Development", 1999, "...")));  —> Arto
+————
+.equals [Except String for ArrayList/HashMap it’s required to compare ]
+
+Book bookObject = new Book("Book Object", 2000, "...");
+Book anotherBookObject = new Book("Book Object", 2000, "...");
+
+if (bookObject.equals(anotherBookObject)) {
+    System.out.println("The books are the same");
+} else {
+    System.out.println("The books aren't the same");
+}
+
+O/p: without our override method: The books aren't the same.
+
+this.getClass() != object.getClass() or instanceof
+
+public boolean equals(Object comparedObject) {
+        // if the variables are located in the same place, they're the same
+        if (this == comparedObject) {
+            return true;
+        }
+
+        // if comparedObject is not of type Book, the objects aren't the same
+        if (!(comparedObject instanceof Book)) {
+            return false;
+        }
+
+        // let's convert the object to a Book-object
+        Book comparedBook = (Book) comparedObject;
+
+        // if the instance variables of the objects are the same, so are the objects
+        if (this.name.equals(comparedBook.name) &&
+            this.published == comparedBook.published &&
+            this.content.equals(comparedBook.content)) {
+            return true;
+        }
+
+        // otherwise, the objects aren't the same
+        return false;
+    }
+

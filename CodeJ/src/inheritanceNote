@@ -1,0 +1,334 @@
+Inheritance
+
+Agregation and Inheritance !!!
+
+You use the keyword extends to inherit the properties of a class. The class that receives the properties is called the subclass, and the class whose properties are inherited is called the superclass.
+
+* Use SubClass , Use Object from diff Class
+* With Object as instance and Inheritance full Use !!!
+* Call super methods in the constructor
+* And add in the Object ArrayList in the Constructor
+* Method Overloading from Super class and calling the same Methods inside this, Also using our own Adding things
+* print super to_string and super methods o/p
+
+public class Part {
+
+    private String identifier;
+    private String manufacturer;
+    private String description;
+
+    public Part(String identifier, String manufacturer, String description) {
+        this.identifier = identifier;
+        this.manufacturer = manufacturer;
+        this.description = description;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+}
+
+public class Engine extends Part {
+
+    private String engineType;
+
+    public Engine(String engineType, String identifier, String manufacturer, String description) {
+        super(identifier, manufacturer, description);
+        this.engineType = engineType;
+    }
+
+    public String getEngineType() {
+        return engineType;
+    }
+}
+The class definition public class Engine extends Part indicates that the class Engine inherits the functionality of the class Part. We also define an object variable engineType in the class Engine.
+
+We use the keyword super to call the constructor of the superclass. The call super(identifier, manufacturer, description) calls the constructor public Part(String identifier, String manufacturer, String description) which is defined in the class Part.
+
+The object variables defined in the superclass are initiated with their initial values. After calling the superclass constructor, we also set the proper value for the object variable engineType.
+
+This is used to call a constructor of this class, while super is used to call a constructor of the superclass
+
+
+Engine engine = new Engine("combustion", "hz", "volkswagen", "VW GOLF 1L 86-91");
+System.out.println(engine.getEngineType());
+
+
+
+-------- - - - - - -
+If we inheritance from any Class, we can call the methods of that Class:
+
+  //A a = new A();
+  //B b = new B();
+  C c = new C();
+
+  c.a();
+  c.b();
+  c.c();
+
+public class B extends A{
+    public void b(){
+        System.out.println("B");
+    }
+}
+public class C extends B{
+    public void c(){
+        System.out.println("C");
+    }
+}
+
+--- - - - --
+
+overwrite an inherited method !!! toString
+public String toString() {
+    return super.toString() + "\n  And let's add my own message to it!";
+}
+=====
+Example:
+
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+//        Teacher ada = new Teacher("Ada Lovelace", "24 Maddox St. London W1S 2QN", 1200);
+//        Teacher esko = new Teacher("Esko Ukkonen", "Mannerheimintie 15 00100 Helsinki", 5400);
+//        System.out.println(ada);
+//        System.out.println(esko);
+//
+//        Student ollie = new Student("Ollie", "6381 Hollywood Blvd. Los Angeles 90028");
+//
+//        int i = 0;
+//        while (i < 25) {
+//            ollie.study();
+//            i = i + 1;
+//        }
+//        System.out.println(ollie);
+        ArrayList<Person> persons = new ArrayList<Person>();
+        persons.add(new Teacher("Ada Lovelace", "24 Maddox St. London W1S 2QN", 1200));
+        persons.add(new Student("Ollie", "6381 Hollywood Blvd. Los Angeles 90028"));
+
+        printPersons(persons);
+    }
+    public static void printPersons(ArrayList<Person> persons){
+        for(Person i:persons){
+            System.out.println(i);
+        }
+    }
+
+}
+=-----
+public class Person {
+    private String name;
+    private String address;
+
+    public Person(String name,String address){
+        this.name=name;
+        this.address=address;
+    }
+
+    public String toString(){
+        return this.name+"\n  "+this.address;
+    }
+
+}
+------
+public class Student extends Person {
+    private int score;
+
+    public Student(String name,String address){
+        super(name,address);
+        this.score=0;
+    }
+
+    public void study(){
+        this.score++;
+    }
+    public int credits(){
+        return this.score;
+    }
+    public String toString(){
+        return super.toString()+"\n  "+"Study credits "+this.credits();
+    }
+
+}
+----
+public class Teacher extends Person {
+    private int salary;
+
+    public Teacher(String name,String address,int salary){
+        super(name,address);
+        this.salary=salary;
+    }
+    public int getSal(){
+        return this.salary;
+    }
+
+    public String toString(){
+        return super.toString()+"\n  "+"salary "+this.salary+" euro/month";
+    }
+
+}
+-------
+OP:
+Ada Lovelace
+  24 Maddox St. London W1S 2QN
+  salary 1200 euro/month
+Ollie
+  6381 Hollywood Blvd. Los Angeles 90028
+  Study credits 0
+
+
+-====
+
+Student ollie = new Student("Ollie", "6381 Hollywood Blvd. Los Angeles 90028");
+System.out.println(ollie);
+Person olliePerson = new Student("Ollie", "6381 Hollywood Blvd. Los Angeles 90028");
+System.out.println(olliePerson);
+Object ollieObject = new Student("Ollie", "6381 Hollywood Blvd. Los Angeles 90028");
+System.out.println(ollieObject);
+
+Object alice = new Student("Alice", "177 Stewart Ave. Farmington, ME 04938");
+System.out.println(alice);
+
+The method to be executed is chosen based on the actual type of the object, which means the class whose constructor is called when the object is created. If the method has no definition in that class, the version of the method is chosen from the class that is closest to the actual type in the inheritance hierarchy.
+
+====
+
+Polymorphism
+
+public class Main {
+
+    public static void main(String[] args) {
+        ArrayList<Point> points = new ArrayList<>();
+        points.add(new Point(4, 8));
+        points.add(new ColorPoint(1, 1, "green"));
+        points.add(new ColorPoint(2, 5, "blue"));
+        points.add(new Point3D(5, 2, 8));
+        points.add(new Point(0, 0));
+
+
+        for (Point p: points) {
+            System.out.println(p);
+        }
+    }
+}
+(4, 8) distance 12
+(1, 1) distance 2 color: green
+(2, 5) distance 7 color: blue
+(5, 2, 8) distance 15
+(0, 0) distance 0
+---
+public class Point3D extends Point {
+
+    private int z;
+
+    public Point3D(int x, int y, int z) {
+        super(x, y);
+        this.z = z;
+    }
+
+    @Override
+    protected String location() {
+        return super.location() + ", " + z;    // the resulting string has the form "x, y, z"
+    }
+
+    @Override
+    public int manhattanDistanceFromOrigin() {
+        // first ask the superclass for the distance based on x and y
+        // and add the effect of the z coordinate to that result
+        return super.manhattanDistanceFromOrigin() + Math.abs(z);
+    }
+
+    @Override !! Not required !!!
+    public String toString() {
+        return "(" + this.location() + ") distance " + this.manhattanDistanceFromOrigin();
+    }
+}
+---
+public class ColorPoint extends Point {
+
+    private String color;
+
+    public ColorPoint(int x, int y, String color) {
+        super(x, y);
+        this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " color: " + color;
+    }
+}
+--
+public class Point {
+
+    private int x;
+    private int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int manhattanDistanceFromOrigin() {
+        return Math.abs(x) + Math.abs(y);
+    }
+
+    protected String location(){
+        return x + ", " + y;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this.location() + ") distance " + this.manhattanDistanceFromOrigin();
+    }
+}
+===
+
+Example where not to use inheritance:
+Let's consider a postal service and some related classes. Customer includes the information related to a customer, and the class Order that inherits from the Customer class and includes the information about the ordered item. The class Order also has a method called postalAddress which represents the postal address that the order is shipped to.
+------
+public class Order {
+
+    private Customer customer;
+    private String product;
+    private String count;
+
+    public Order(Customer customer, String product, String count) {
+        this.customer = customer;
+        this.product = product;
+        this.count = count;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public String postalAddress() {
+        return this.customer.getName() + "\n" + this.customer.getAddress();
+    }
+}
+
+====
+
+Warehouse Class:
+* Use SubClass , Use Object from diff Class
+* With Object as instance and Inheritance full Use !!!
+* Call super methods in the constructor
+* And add in the Object ArrayList in the Constructor
+* Method Overloading from Super class and calling the same Methods inside this, Also using our own Adding things
+* print super to_string and super methods o/p
+
+
+
+Abstract classes
+
+
+
+
+

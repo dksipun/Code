@@ -1,4 +1,4 @@
-package ui_interface_advance_2;
+package ui_Class_advance_2;
 
 import java.util.Scanner;
 
