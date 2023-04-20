@@ -14,11 +14,11 @@ public class StartingBasics_0 {
         if(num > 2){
             System.out.println(num+": is bigger than 2");
         }else {
-            System.out.println(num+": is smaler than 2");
+            System.out.println(num+": is smaller than 2");
         }
 
         int[] numbers = {100,  1,  42,  23,  1,  1, 3200, 3201};
-        //For
+        //For array
         for(int i=0;i<numbers.length;i++){
             System.out.println(numbers[i]);
             list.add(numbers[i]);
@@ -27,7 +27,7 @@ public class StartingBasics_0 {
         for(int i:list){
             System.out.println(i);
         }
-        //For
+        //For list
         for(int i=0;i<list.size();i++){
             System.out.println(list.get(i));
         }

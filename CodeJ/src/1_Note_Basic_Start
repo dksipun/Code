@@ -10,7 +10,7 @@ public class HelloJava{
 }
 
 //Variable:
-	test(String)
+	words(String)
 	number(int)
 	floating-number(double)
 	true/false(boolean)
@@ -35,14 +35,14 @@ public class HelloJava{
 	}
 
 	* Java has 8 different primitive variables:
-	boolean (a truth value: either true or false)
-	byte (a byte containing 8 bits, between the values -128 and 127)
-	char (a 16-bit value representing a single character)
-	short (a 16-bit value that represents a small integer, between the values -32768 and 32767)
-	int (a 32-bit value that represents a medium-sized integer, between the values -231 and 231-1)
-	long (a 64-bit value that represents a large integer, between values -263 and 263-1)
-	float (a floating-point number that uses 32 bits)
-	double (a floating-point number that uses 64 bits)
+	boolean (a truth value: either true or false)
+	byte (a byte containing 8 bits, between the values -128 and 127)
+	char (a 16-bit value representing a single character)
+	short (a 16-bit value that represents a small integer, between the values -32768 and 32767)
+	int (a 32-bit value that represents a medium-sized integer, between the values -231 and 231-1)
+	long (a 64-bit value that represents a large integer, between values -263 and 263-1)
+	float (a floating-point number that uses 32 bits)
+	double (a floating-point number that uses 64 bits)
 
 //Condition:
 	int number = 4;
@@ -84,10 +84,10 @@ public class HelloJava{
  	!
 
 //Reading input [String / FileName]
-import java.util.Scanner;
-import java.nio.file.Paths;
-public class Program {
+    import java.util.Scanner;
+    import java.nio.file.Paths;
 
+    public class Program {
     public static void main(String[] args) {
     	// read is Object
         Scanner read = new Scanner(System.in);
@@ -111,53 +111,67 @@ public class Program {
 }
 
 //Method + ArrayList + Loop
-list.get(index)
-list.remove(2);
-list.remove(Integer.valueOf(15));
-list.remove("First");
-boolean found = list.contains("Second");
-if (found) {
-    System.out.println("Second was found");
-}
-if (list.contains("Second")) {
-    System.out.println("Second can still be found");
-}
 
-ArrayList<String> sipun=new ArrayList<>();
-import java.util.Arraylist;
-public class ReadList{
-	public static void main(String[] args){
-		ArrayList<String> sipunList=new ArrayList<>();
-		sipunList.add("s1");
-		sipunList.add("s2");
-		sipunList.add("s1");
+    ArrayList<Integer> num=new ArrayList<>();
+    num.add(5);
+    num.add(6);
 
-		printList(sipunList);
-	}
+    num.set(index:0,55)// For replace 5 to 55;
+    System.out.println(num.get(0); // Print the index 0 of ArrayList num
+    num.remove(6)
 
-	public static void printList(ArrayList<String> list){
-		int index=0;
+    list.get(index)
+    list.remove(2);
+    list.remove(Integer.valueOf(15));
+    list.remove("First");
+    boolean found = list.contains("Second");
+    if (found) {
+        System.out.println("Second was found");
+    }
+    if (list.contains("Second")) {
+        System.out.println("Second can still be found");
+    }
 
-		while(index < list.size()){
-			System.out.println(list.get(index));
-			index++;
-		}
+    ArrayList<String> sipun=new ArrayList<>();
+    import java.util.Arraylist;
+    public class ReadList{
+        public static void main(String[] args){
+            ArrayList<String> sipunList=new ArrayList<>();
+            sipunList.add("s1");
+            sipunList.add("s2");
+            sipunList.add("s1");
 
-		for(int i=0;i<list.size();i++){
-			System.out.println(list.get(i));
-		}
+            printList(sipunList);
+        }
+//While and For/ForEach
+        public static void printList(ArrayList<String> list){
+            int index=0;
 
-		for(String i;list){
-			System.out.println(i);
-		}
-	}
-}
-//Note: Methods in Java can be divided into two groups, based on whether they have the static modifier or not. Methods without the static modifier are instance methods. Methods with the static modifier are class methods
-//* Instance methods are methods that are associated with an object, can process the objects variables and can call the object's other methods. Instance methods specifically CAN use the this modifier, which refers to the variables associated with the specific object, that is calling the instance method. Class methods can't use the this modifier, meaning that they can only access the variables they are given as parameters or that they create themselves.
+            while(index < list.size()){
+                System.out.println(list.get(index));
+                index++;
+            }
+
+            for(int i=0;i<list.size();i++){
+                System.out.println(list.get(i));
+            }
+
+            for(String i;list){
+                System.out.println(i);
+            }
+        }
+    }
+//Note: Methods in Java can be divided into two groups, based on whether they have the static modifier or not.
+        Methods without the static modifier are instance methods. Methods with the static modifier are class methods.
+
+//* Instance methods are methods that are associated with an object, can process the objects variables and can call
+    the object's other methods. Instance methods specifically CAN use the this modifier, which refers to the variables
+    associated with the specific object, that is calling the instance method. Class methods can't use the this modifier,
+    meaning that they can only access the variables they are given as parameters or that they create themselves.
 
 
 //Object
-An object is always instantiated by calling a method that created an object, i.e., a constructor by using the new keyword.
+    An object is always instantiated by calling a method that created an object, i.e., a constructor by using the new keyword.
 
 //Return
 	public static void main(String[] args) {
@@ -174,7 +188,7 @@ An object is always instantiated by calling a method that created an object, i.e
 	public static ArrayList<Person> readRecordsFromFile(String file) {
 
 //Array
-	int number=new int[3]
+	int numbers=new int[3]
 	String msg=new String[2]
 	double[] approximations = new double[100];
 
@@ -199,3 +213,4 @@ An object is always instantiated by calling a method that created an object, i.e
 	char character = text.charAt(0);
 	System.out.println(character);
 	OP-> H
+//

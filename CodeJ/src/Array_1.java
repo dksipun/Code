@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Array_1 {
@@ -17,10 +18,11 @@ public class Array_1 {
         //Initialize Array
         myNum[2] = 5;
 
+
         //printArray
         System.out.println(myNum[2]); //5
 
-        //Array[] and List are Reference type[Non Primitive] will use same reference memory
+        //Array[] and List are ** Reference type ** [Non Primitive] will use same reference memory
         int[] cloneNum=myNum;
         cloneNum[2]=6;
         System.out.println(myNum[2]); // 6
@@ -76,7 +78,7 @@ public class Array_1 {
         //Randon Suffle
         int temp;
         for(int i=0;i<myNumbers.length;i++){
-            int r=(int) Math.random() * myNumbers.length;
+            int r=(int) (Math.random() * myNumbers.length-1);
             temp=myNumbers[i];
             myNumbers[i]=myNumbers[r];
             myNumbers[r]=temp;
@@ -100,7 +102,7 @@ public class Array_1 {
         }
             //Suffel Cards
         for(int i=0;i<deck.length;i++){
-            int r=(int) (Math.random() * deck.length);
+            int r=(int) (Math.random() * deck.length-1);
             int tempCard=deck[i];
             deck[i]=deck[r];
             deck[r]=tempCard;
@@ -156,6 +158,11 @@ public class Array_1 {
         //java.util.Arrays.toString(list)  Arrays.equals(i,j) Arrarys.binarySearch(int[] list,num) Arrays.fill(list,0,2,6);//partial change
 
         //Q> Game: Eight Queens. Place 8 queen in 8*8 board (no kill position)
+
+        //Q. Subsequence
+        String[] list={"a","b","c"};
+        subsq(list,"");
+        subsq("123","");
     }
 
     ////////Methods
@@ -237,6 +244,55 @@ public class Array_1 {
             else high = mid - 1;
         }
         return -low-1;
+    }
+
+    public static void subsq(String[] list,String ans){
+        if(list.length==0) {
+            System.out.println(ans);
+            return;
+        }
+        String ch=list[0];
+        subsq(Arrays.copyOfRange(list,1,list.length),ans+ch);
+        subsq(Arrays.copyOfRange(list,1,list.length),ans+"");
+    }
+    public static void subsq(String name,String ans){
+        if(name.length()==0) {
+            System.out.println(ans);
+            return;
+        }
+        char ch= name.charAt(0);
+        String roq=name.substring(1);
+        subsq(roq,ans+"");
+        subsq(roq,ans+ch);
+    }
+    public static int[] sortarr(int[] arr){
+        if(arr.length<=1){
+            return arr;
+        }
+        int mid=arr.length / 2;
+        int[] left=sortarr(Arrays.copyOfRange(arr,0,mid));
+        int[] right=sortarr(Arrays.copyOfRange(arr,mid,arr.length));
+        return merge(left,right);
+    }
+    public static int[] merge(int[] left,int[] right){
+        int[] result=new int[left.length+right.length];
+        int l=0;
+        int r=0;
+        int index=0;
+        while (l<left.length && r<right.length){
+            if(left[l]<right[r]){
+                result[index++]=left[l++];
+            }else {
+                result[index++]=right[r++];
+            }
+        }
+        while (l<left.length){
+            result[index++]=left[l++];
+        }
+        while (r<right.length){
+            result[index++]=right[r++];
+        }
+        return result;
     }
 
 }

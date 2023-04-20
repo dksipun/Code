@@ -1,3 +1,8 @@
+//OOPS Concepts:
+	* Object/Constructor:
+	* Instance variable/ Object Variable:
+	* method/ Object method:
+Example:
 public class YourFirstAccount {
 
     public static void main(String[] args) {
@@ -244,14 +249,14 @@ public class Clock(){
 	}
 
 	* Java has 8 different primitive variables:
-	boolean (a truth value: either true or false)
-	byte (a byte containing 8 bits, between the values -128 and 127)
-	char (a 16-bit value representing a single character)
-	short (a 16-bit value that represents a small integer, between the values -32768 and 32767)
-	int (a 32-bit value that represents a medium-sized integer, between the values -231 and 231-1)
-	long (a 64-bit value that represents a large integer, between values -263 and 263-1)
-	float (a floating-point number that uses 32 bits)
-	double (a floating-point number that uses 64 bits)
+	boolean (a truth value: either true or false)
+	byte (a byte containing 8 bits, between the values -128 and 127)
+	char (a 16-bit value representing a single character)
+	short (a 16-bit value that represents a small integer, between the values -32768 and 32767)
+	int (a 32-bit value that represents a medium-sized integer, between the values -231 and 231-1)
+	long (a 64-bit value that represents a large integer, between values -263 and 263-1)
+	float (a floating-point number that uses 32 bits)
+	double (a floating-point number that uses 64 bits)
 
 //Exception Nullpoint Raise
 	linesList=null;
@@ -435,6 +440,13 @@ public class Factory {
         return new Car(this.make);
     }
 }
+
+example:
+ArrayList<Person> persons = new ArrayList<>();
+
+Person john = new Person("John");
+persons.add(new Person("Matthew"));
+persons.add(john);
 
 //Object on a list and list as part of an Object
 

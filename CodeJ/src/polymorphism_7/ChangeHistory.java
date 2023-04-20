@@ -19,9 +19,9 @@ public class ChangeHistory{
         double m=0;
         if(this.changeHistory.size()==0){
             return m;
-        }else {m=this.changeHistory.get(0);}
-
-        for(double i:this.changeHistory){
+        }else {
+            m=this.changeHistory.get(0);}
+            for(double i:this.changeHistory){
             if(i<m){m=i;}
         }
         return m;

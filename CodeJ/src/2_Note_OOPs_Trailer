@@ -4,7 +4,9 @@ IMP
 
 	* Instance variable/ Object Variable: Ex:	private String owner;
 
-	* method/ Object method: Methods in Java can be divided into two groups, based on whether they have the static modifier or not. Methods without the static modifier are instance methods. Methods with the static modifier are class methods.
+	* method/ Object method: Methods in Java can be divided into two groups, based on whether they have the static modifier or not.
+	          Methods without the static modifier are instance methods. Methods with the static modifier are class methods.
+
 public void setHeight(int height) {
     this.height = height;
 }
@@ -33,7 +35,7 @@ try (Scanner scanner = new Scanner(Paths.get("records.txt"))) {
 
 	* ObjectGivenAsParameter | we can directly use it as parameter[object parameter]
 
-	* Object as object variable [in Clock/SimpleDate Example] [For used it creting constructor we have to pass it as object variable[object type]]
+	* Object as object/instance variable [in Clock/SimpleDate Example] [For used it creating constructor we have to pass it as object variable[object type]]
 
 	* Exception Null_Point Raise
 
@@ -42,16 +44,18 @@ try (Scanner scanner = new Scanner(Paths.get("records.txt"))) {
     * Object in an Instance variable [UI Interface Class]
 
 Algorithems
+
 ====
 Hashmap
 
 Inheritance
-Interfaces
 Polymorphism
 
+Interfaces
 Collection as stream
 Comparable Interface
 
+==========================
 Class Diagram
 Packages
 Exceptions

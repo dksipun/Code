@@ -2,7 +2,8 @@ Inheritance
 
 Agregation and Inheritance !!!
 
-You use the keyword extends to inherit the properties of a class. The class that receives the properties is called the subclass, and the class whose properties are inherited is called the superclass.
+You use the keyword extends to inherit the properties of a class. The class that receives the properties is called the subclass,
+and the class whose properties are inherited is called the superclass.
 
 * Use SubClass , Use Object from diff Class
 * With Object as instance and Inheritance full Use !!!
@@ -41,11 +42,15 @@ public class Engine extends Part {
         return engineType;
     }
 }
-The class definition public class Engine extends Part indicates that the class Engine inherits the functionality of the class Part. We also define an object variable engineType in the class Engine.
 
-We use the keyword super to call the constructor of the superclass. The call super(identifier, manufacturer, description) calls the constructor public Part(String identifier, String manufacturer, String description) which is defined in the class Part.
+The class definition public class Engine extends Part indicates that the class Engine inherits the functionality of the class Part.
+We also define an object variable engineType in the class Engine.
 
-The object variables defined in the superclass are initiated with their initial values. After calling the superclass constructor, we also set the proper value for the object variable engineType.
+We use the keyword super to call the constructor of the superclass. The call super(identifier, manufacturer, description) calls the
+constructor public Part(String identifier, String manufacturer, String description) which is defined in the class Part.
+
+The object variables defined in the superclass are initiated with their initial values. After calling the superclass constructor,
+we also set the proper value for the object variable engineType.
 
 This is used to call a constructor of this class, while super is used to call a constructor of the superclass
 
@@ -191,7 +196,9 @@ System.out.println(ollieObject);
 Object alice = new Student("Alice", "177 Stewart Ave. Farmington, ME 04938");
 System.out.println(alice);
 
-The method to be executed is chosen based on the actual type of the object, which means the class whose constructor is called when the object is created. If the method has no definition in that class, the version of the method is chosen from the class that is closest to the actual type in the inheritance hierarchy.
+The method to be executed is chosen based on the actual type of the object, which means the class whose constructor is called when
+the object is created. If the method has no definition in that class, the version of the method is chosen from the class that is
+closest to the actual type in the inheritance hierarchy.
 
 ====
 
@@ -287,7 +294,9 @@ public class Point {
 ===
 
 Example where not to use inheritance:
-Let's consider a postal service and some related classes. Customer includes the information related to a customer, and the class Order that inherits from the Customer class and includes the information about the ordered item. The class Order also has a method called postalAddress which represents the postal address that the order is shipped to.
+Let's consider a postal service and some related classes. Customer includes the information related to a customer, and the class
+Order that inherits from the Customer class and includes the information about the ordered item. The class Order also has a method
+called postalAddress which represents the postal address that the order is shipped to.
 ------
 public class Order {
 
@@ -325,10 +334,4 @@ Warehouse Class:
 * print super to_string and super methods o/p
 
 
-
 Abstract classes
-
-
-
-
-

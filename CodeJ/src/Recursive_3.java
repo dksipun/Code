@@ -144,7 +144,7 @@ public class Recursive_3 {
 
     //3.9 Bsearch recursive
     public static int bsearch(int[] list,int num,int low,int high) {
-        int mid = (low + high) / 2;
+        int mid = (low + (high+1)) / 2;
         if (low >= high) {
             System.out.println("Not present");
             return -low-1;
@@ -170,10 +170,6 @@ public class Recursive_3 {
             return factorialTailR(num - 1, num * result);
         }
     }
-
     //Fibonaci series with Tail REcursion
-
     //String permutation
-
-
 }

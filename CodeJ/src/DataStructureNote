@@ -1,0 +1,2350 @@
+
+Recursion:
+
+==============
+
+* Finding the greatest divisor
+  Sample Input: 24, 18
+  Sample Output: 6
+
+
+
+* Converting decimal to binary number
+
+* Check palindrome
+
+* Balance parenthesis
+
+* Reverse a stack
+
+* Topological sorting of a graph
+
+* Depth-first search
+
+
+
+
+
+
+          DS
+=========    ========= NEXTDS
+========  ()  ========  NEXTDS
+========= 	 =========   NEXTDS
+
+* Arrays
+
+* Linked Lists
+
+* Strings
+
+* Stacks and Queues
+
+* Trees
+
+* Tries
+
+* Heaps
+
+* Hash Tables
+
+
+==========================================================================================================NEXTDS
+
+* Arrays
+
+==========================================================================================================
+
+Q.Find n=sum of num from given array. | O(n*logn)
+public static int[] findSum(int[] arr, int n) {
+    //Helper sort function that uses the Quicksort Algorithm
+    sort(arr, 0, arr.length - 1);   //Sort the array in Ascending Order
+
+    int Pointer1 = 0;    //Pointer 1 -> At Start
+    int Pointer2 = arr.length - 1;   //Pointer 2 -> At End
+
+    int[] result = new int[2];
+    int sum = 0;
+
+    while (Pointer1 != Pointer2) {
+
+      sum = arr[Pointer1] + arr[Pointer2];  //Calulate Sum of Pointer 1 and 2
+
+      if (sum < n)
+        Pointer1++;  //if sum is less than given value => Move Pointer 1 to Right
+      else if (sum > n)
+        Pointer2--;
+      else {
+        result[0] = arr[Pointer1];
+        result[1] = arr[Pointer2];
+        return result; // containing 2 number
+      }
+    }
+    return arr;
+  }
+  ======
+
+Q. Get total products except index element.
+
+class ProductArray
+{
+  public static int[] findProduct(int arr[])
+  {
+    int [] result = new int[arr.length];
+
+    // write your code here
+    int product=1;
+    int nonZeroProduct=1;
+    for(int i=0;i<arr.length;i++){
+      product *= arr[i];
+      if(arr[i]!=0){
+        nonZeroProduct *= arr[i];
+      }
+    }
+
+    for(int i=0;i<arr.length;i++){
+      if(arr[i]==0){
+        result[i]=nonZeroProduct;
+      }else{
+        result[i]=product/arr[i];
+      }
+    }
+    return result;
+   }
+}
+=== Another Way:
+public static int[] findProduct(int arr[])
+    {
+        int n = arr.length;
+        int i, temp = 1;
+
+        // Allocation of result array
+        int result[] = new int[n];
+
+        // Product of elements on left side excluding arr[i]
+        for (i = 0; i < n; i++)
+        {
+            result[i] = temp;
+            temp *= arr[i];
+        }
+        // Initializing temp to 1 for product on right side
+        temp = 1;
+
+        // Product of elements on right side excluding arr[i]
+        for (i = n - 1; i >= 0; i--)
+        {
+            result[i] *= temp;
+            temp *= arr[i];
+        }
+
+        return result;
+    }
+    ===
+
+Q, 1st uniq element:
+
+O(n*log(n))
+public static int findFirstUnique(int[] arr)
+ {
+   //int result = 0;
+   // write your code here
+   arr.sort();
+   int temp=0;
+   int index=0;
+
+   while(index<arr.length-1){
+     if(arr[index]==arr[index+1]){
+       temp=arr[index];
+       index+=2;
+     }else if(arr[index]==temp){
+       index++;
+     }else{
+       return arr[index];
+     }
+   }
+   return 0;
+ }
+---- Using MAP<> O(n2)
+class CheckFirstUnique
+{
+ public static int findFirstUnique(int[] arr)
+ {
+   //int result = 0;
+   // write your code here
+   Map<Integer, Integer> countElements = new HashMap<>();
+   for(int i = 0; i < arr.length; i++){
+     countElements.put(arr[i],0);
+   }// Here directly not working if(.get)
+   for(int i = 0; i < arr.length; i++){
+     countElements.put(arr[i],countElements.get(arr[i])+1);
+   }
+   for(int i = 0; i < arr.length; i++){
+     if(countElements.get(arr[i]) <= 1){
+       return arr[i];
+     }
+   }
+	 return -1;
+ }
+}
+=====
+Q. 2nd Highest val:
+
+public int findSecondMaximum(int[] arr)
+  {
+    // Write - Your - Code
+    int Max=0;
+    int Max2=0;
+
+    for(int i:arr){
+      if(i>Max){
+        Max2=Max;
+        Max=i;
+      }else if(i<Max && i>Max2){
+        Max2=i;
+      }
+    }
+    return Max2;
+  }
+
+=====
+Q. Rotate Right:
+
+public static void rotateArray(int[] arr){
+
+    // Write - Your - Code
+    int prev=arr[arr.length-1];
+    int hold;
+    for(int i=0;i<arr.length;i++){
+      hold=arr[i];
+      arr[i]=prev;
+      prev=hold;
+    }
+}
+
+======
+Q. Rearrange +ve & -ve
+O(n)
+public static int[] rearrange(int[] arr){
+    int low=0;
+    int high=arr.length-1;
+    int temp;
+    while(low<=high){
+        if(arr[low]>0 && arr[high]<0){
+            temp=arr[low];
+            arr[low]=arr[high];
+            arr[high]=temp;
+            low++;
+            high--;
+        }else if(arr[low]<0 && arr[high]<0){
+            low++;
+        }else if(arr[low]>0 && arr[high]>0){
+            high--;
+        }else{
+            low++;
+            high--;
+        }
+    }
+=========
+
+Q MaxMin
+
+public static void maxMin(int[] arr) {
+
+  // Write - Your - Code
+  int[] newArr=new int[arr.length];
+  int index=0;
+  for(int i=0;i<arr.length/2;i++){
+      newArr[index]=arr[arr.length-1-i];
+      newArr[index+1]=arr[i];
+      index+=2;
+  }
+  if(arr.length%2==1){
+      newArr[index]=arr[arr.length/2];
+  }
+  for(int j=0;j<newArr.length;j++){
+    arr[j]=newArr[j];
+  }
+}
+
+Under standing Math:
+
+
+public static void maxMin(int[] arr) {
+  int maxIdx = arr.length - 1;
+  int minIdx = 0;
+  int maxElem = arr[maxIdx] + 1; // store any element that is greater than the maximum element in the array
+  for( int i = 0; i < arr.length; i++) {
+    // at even indices we will store maximum elements
+    if (i % 2 == 0){
+      arr[i] += (arr[maxIdx] % maxElem ) * maxElem;
+      maxIdx -= 1;
+    }
+    else { // at odd indices we will store minimum elements
+      arr[i] += (arr[minIdx] % maxElem ) * maxElem;
+      minIdx += 1;
+    }
+  }
+  // dividing with maxElem to get original values.
+  for( int i = 0; i < arr.length; i++) {
+    arr[i] = arr[i] / maxElem;
+  }
+}
+=====
+
+Q. Find Max:
+O(n**2)
+public static int findMaxSumSubArray(int[] arr) {
+        // Write - Your - Code
+    int max=arr[0];
+    int total;
+    for(int i=0;i<arr.length;i++){
+        total=0;
+        for(int j=i;j<arr.length;j++){
+            total+=arr[j];
+            if(max<total){
+                max=total;
+            }
+        }
+    }
+    return max;
+}
+========== O(n)
+public static int findMaxSumSubArray(int[] arr) {
+        // Write - Your - Code
+
+        int Max=arr[0];
+        int CurrentMax=arr[0];
+
+        for(int i=1;i<arr.length;i++) {
+            if (CurrentMax < 0) {
+                CurrentMax = arr[i];
+            } else {
+                CurrentMax += arr[i];
+            }
+
+            if (Max < CurrentMax) {
+                Max = CurrentMax;
+            }
+        }
+        return Max;
+
+==========================================================================================================NEXTDS
+
+* Linked Lists
+
+==========================================================================================================
+
+
+public class SinglyLinkedList<T> {
+    //Node inner class for SLL
+    public class Node {
+        public T data;
+        public Node nextNode;
+
+    }
+
+    public Node headNode; //head node of the linked list
+    public int size;      //size of the linked list
+
+    //Constructor - initializes headNode and size
+    public SinglyLinkedList() {
+        headNode = null;
+        size = 0;
+    }
+
+    //Helper Function that checks if List is empty or not
+    public boolean isEmpty() {
+        if (headNode == null) return true;
+        return false;
+    }
+
+    //Inserts new data at the start of the linked list
+    public void insertAtHead(T data) {
+        //Creating a new node and assigning it the new data value
+        Node newNode = new Node();
+        newNode.data = data;
+        //Linking head to the newNode's nextNode
+        newNode.nextNode = headNode;
+        headNode = newNode;
+        size++;
+    }
+
+    // Helper Function to printList
+    public void printList() {
+        if (isEmpty()) {
+            System.out.println("List is Empty!");
+            return;
+        }
+
+        Node temp = headNode;
+        System.out.print("List : ");
+        while (temp.nextNode != null) {
+            System.out.print(temp.data.toString() + " -> ");
+            temp = temp.nextNode;
+        }
+        System.out.println(temp.data.toString() + " -> null");
+    }
+}
+
+10 -> 9 -> 8 -> 7 -> 6 -> 5 -> 4 -> 3 -> 2 -> 1 -> null
+
+insertAtEnd(data)
+insertAtHead(data)
+
+deleteAtHead()
+deleteAtEnd()
+
+delete(data)
+Search(data)
+
+isEmpty()
+====
+
+Q: Insert at End.
+public void insertAtEnd(T data) {
+    // Write -- Your -- Code
+
+    if(isEmpty()){
+    insertAtHead(data);
+    return;
+    }
+
+    Node newNode=new Node();
+    newNode.data=data;
+    newNode.nextNode=null;
+
+    Node temp=headNode;
+    while(temp.nextNode!=null){
+        temp=temp.nextNode;
+    }
+
+    temp.nextNode=newNode;
+    this.size++;
+}
+
+Q.Insert After:
+  public void insertAfter(T data, T previous) {
+    Node newNode=new Node();
+    newNode.data=data;
+    Node temp=headNode;
+    while(temp.nextNode != null && !temp.data.equals(previous) ){
+      temp=temp.nextNode;
+    }
+    if(temp.nextNode !=null){
+      newNode.nextNode=temp.nextNode;
+      temp.nextNode=newNode;
+      size++;
+    }
+  }
+
+Q. Search:
+  Node temp = this.headNode;
+  while(temp.nextNode!=null ){
+    if(temp.data.equals(data)){
+      return true;
+    }
+    temp = temp.nextNode;
+  }
+  return false;
+
+Q.Deletion:
+public void deleteAtHead() {
+  //if list is empty then simply return
+  if (isEmpty())
+      return;
+  //make the nextNode of the headNode equal to new headNode
+  headNode = headNode.nextNode;
+  size--;
+}
+
+Q. Delete Specific:
+
+public void deleteByValue(T data) {
+  //if empty then simply return
+  if (isEmpty())
+      return;
+  //Start from head node
+  Node currentNode = this.headNode;
+  Node prevNode = null; //previous node starts from null
+  if(currentNode.data.equals(data)) {
+      //data is at head so delete from head
+      deleteAtHead();
+      return;
+  }
+  //traverse the list searching for the data to delete
+  while (currentNode != null) {
+      //node to delete is found
+      if (data.equals(currentNode.data)){
+          prevNode.nextNode = currentNode.nextNode;
+          return;
+      }
+      prevNode = currentNode;
+      currentNode = currentNode.nextNode;
+    }
+}
+
+DLL : Doubly Linked List:
+
+Q. Print DLL with Tail:
+
+//print list function
+public void printList() {
+    if (isEmpty()) {
+        System.out.println("List is Empty!");
+        return;
+    }
+    Node temp = headNode;
+    System.out.print("List : null <- ");
+    while (temp.nextNode != null) {
+        System.out.print(temp.data.toString() + " <-> ");
+        temp = temp.nextNode;
+    }
+    System.out.println(temp.data.toString() + " -> null");
+}
+
+Q. Insert at Start:
+/insert at start of the list
+public void insertAtHead(T data) {
+    Node newNode = new Node();
+    newNode.data = data;
+    newNode.nextNode = this.headNode; //Linking newNode to head's nextNode
+    newNode.prevNode = null; //it will be inserted at start so prevNode will be null
+    if (!isEmpty())
+        headNode.prevNode = newNode;
+    else
+        tailNode = newNode;
+    this.headNode = newNode;
+    size++;
+}
+Q. At End Insert:
+//insert at end of the list
+public void insertAtEnd(T data) {
+    if (isEmpty()) { //if list is empty then insert at head
+        insertAtHead(data);
+        return;
+    }
+    //make a new node and assign it the value to be inserted
+    Node newNode = new Node();
+    newNode.data = data;
+    newNode.nextNode = null; //it will be inserted at end so nextNode will be null
+    newNode.prevNode = tailNode; //newNode comes after tailNode so its prevNode will be tailNode
+    tailNode.nextNode = newNode; //make newNode the nextNode of tailNode
+    tailNode = newNode; //update tailNode to be the newNode
+    size++;
+}
+
+Q.Delete:
+public void deleteAtHead() {
+    if (isEmpty())
+        return;
+
+    headNode = headNode.nextNode;
+    if(headNode == null)
+        tailNode = null;
+    else
+        headNode.prevNode = null;
+    size--;
+}
+Q.
+public void deleteAtTail() {
+    if (isEmpty())
+        return;
+    tailNode = tailNode.prevNode;
+    if (tailNode == null)
+        headNode = null;
+    else
+        tailNode.nextNode = null;
+    size--;
+}
+
+Q. Length:
+list.length();
+public int length() {
+  int count = 0;
+  // Write -- Your -- Code
+  Node temp=headNode;
+  while(temp !=null){
+    temp=temp.nextNode;
+    count++;
+  }
+  return count;
+}
+
+
+Q.Reverse LList:
+public static <T> void reverse(SinglyLinkedList<T> list){
+    //Write -- Your -- Code
+    SinglyLinkedList<T>.Node prev=null;
+    SinglyLinkedList<T>.Node current=list.headNode;
+    SinglyLinkedList<T>.Node next=null;
+    while(current !=null){
+        next=current.nextNode;
+        current.nextNode=prev;
+        prev = current;
+        current = next;
+    }
+    list.headNode = prev;
+
+}
+
+Q. is it a loop:
+public static <T> boolean detectLoop(SinglyLinkedList<T> list) {
+  //Write -- Your -- Code
+  SinglyLinkedList<T>.Node slow=list.headNode;
+  SinglyLinkedList<T>.Node fast=list.headNode;
+  while(slow !=null && fast !=null && fast.nextNode!=null){
+      slow=slow.nextNode;
+      fast=fast.nextNode.nextNode;
+      if(slow==fast){
+          return true;
+      }
+  }
+  return false;
+}
+
+Q.Get Mid in SLL:
+public static <T> Object findMiddle(SinglyLinkedList<T> list) {
+     // Write -- Your -- Code
+    SinglyLinkedList<T>.Node slow=list.headNode;
+    SinglyLinkedList<T>.Node fast=list.headNode;
+    while(slow !=null && fast !=null && fast.nextNode !=null){
+      fast=fast.nextNode.nextNode;
+      if(fast !=null){
+        slow=slow.nextNode;
+      }
+    }
+    return slow.data;
+  }
+
+Q.Remove Duplicates:
+class RemoveDuplicatesChallenge {
+    public static <T> void removeDuplicates(SinglyLinkedList<T> list) {
+        // Write -- Your -- Code
+        SinglyLinkedList<T>.Node current=list.getHeadNode();
+        SinglyLinkedList<T>.Node compare=null;
+        while(current !=null && current.nextNode!=null){
+            compare=current;
+            while(compare.nextNode!=null){
+                if(current.data.equals(compare.nextNode.data)){
+                    compare.nextNode=compare.nextNode.nextNode;
+                }else{
+                    compare=compare.nextNode;
+                }
+            }
+            current = current.nextNode;
+        }
+    }
+}
+
+Q. LAst num;
+public static <T> Object nthElementFromEnd(SinglyLinkedList<T> list, int n) {
+    int size = list.getSize();
+    n = size - n + 1; //we can use the size variable to calculate distance from start
+    if (size == 0 || n > size) {
+        return null; //returns null if list is empty or n is greater than size
+    }
+    SinglyLinkedList.Node current = list.getHeadNode();
+    int count = 1;
+    //traverse until count is not equal to n
+    while (current != null) {
+        if (count == n)
+            return current.data;
+        count++;
+        current = current.nextNode;
+    }
+    return null;
+}
+
+Q.
+
+==========================================================================================================NEXTDS
+
+Stack & Queues
+
+==========================================================================================================
+
+Stack Functions:
+-----
+push    Inserts an element at the top
+pop     Removes an element from the top and returns it
+isFull  Returns true if the stack is full and false otherwise
+isEmpty Returns true if the stack is empty and false otherwise
+top     Returns the element at the top (i.e., the one added most recently)
+
+
+public class Stack <V> {
+    private int maxSize;
+    private int top;
+    private V array[];
+
+    /*
+    Java does not allow generic type arrays. So we have used an
+    array of Object type and type-casted it to the generic type V.
+    This type-casting is unsafe and produces a warning.
+    Comment out the line below and execute again to see the warning.
+    */
+    @SuppressWarnings("unchecked")
+    public Stack(int max_size) {
+        this.maxSize = max_size;
+        this.top = -1; //initially when stack is empty
+        array = (V[]) new Object[max_size];//type casting Object[] to V[]
+    }
+
+    //returns the maximum size capacity
+    public int getMaxSize() {
+        return maxSize;
+    }
+
+    //returns true if Stack is empty
+    public boolean isEmpty(){
+        return top == -1;
+    }
+
+    //returns true if Stack is full
+    public boolean isFull(){
+        return top == maxSize -1;
+    }
+
+    //returns the value at top of Stack
+    public V top(){
+        if(isEmpty())
+            return null;
+        return array[top];
+    }
+
+    //inserts a value to the top of Stack
+    public void push(V value){
+        if(isFull()) {
+            System.err.println("Stack is Full!");
+            return;
+        }
+        array[++top] = value; //increments the top and adds value to updated top
+    }
+
+    //removes a value from top of Stack and returns
+    public V pop(){
+        if(isEmpty())
+            return null;
+        return array[top--]; //returns value and top and decrements the top
+    }
+
+}
+
+
+======
+
+Queue:
+
+Circular Queue:
+Priority Queue
+
+Queue Functions:
+------
+
+enqueue   Inserts element to the end of the queue
+dequeue   Removes an element from the start of the queue
+top       Returns the first element of the queue
+isEmpty   Checks if the queue is empty
+isFull    Checks if the queue is full
+
+enqueue (datatype V)
+datatype dequeue()
+boolean isEmpty()
+boolean isFull()
+datatype top()
+===============
+Linear Queue
+Circular Queue
+Priority Queue
+
+==========
+public class Queue<V> {
+    private int maxSize;
+    private V[] array;
+    private int front;
+    private int back;
+    private int currentSize;
+
+    /*
+    Java does not allow generic type arrays. So we have used an
+    array of Object type and type-casted it to the generic type V.
+    This type-casting is unsafe and produces a warning.
+    Comment out the line below and execute again to see the warning.
+    */
+    @SuppressWarnings("unchecked")
+    public Queue(int maxSize) {
+        this.maxSize = maxSize;
+        array = (V[]) new Object[maxSize];
+        front = 0;
+        back = -1;
+        currentSize = 0;
+    }
+
+    public int getMaxSize() {
+        return maxSize;
+    }
+
+    public int getCurrentSize() {
+        return currentSize;
+    }
+
+    public boolean isEmpty() {
+        return currentSize == 0;
+    }
+
+    public boolean isFull() {
+        return currentSize == maxSize;
+    }
+
+    public V top() {
+        return array[front];
+    }
+
+    public void enqueue(V value) {
+        if (isFull())
+            return;
+        back = (back + 1) % maxSize; //to keep the index in range
+        array[back] = value;
+        currentSize++;
+    }
+
+    public V dequeue() {
+        if (isEmpty())
+            return null;
+
+        V temp = array[front];
+        front = (front + 1) % maxSize; //to keep the index in range
+        currentSize--;
+
+        return temp;
+    }
+}
+===================
+Q. Get Binary number from 1 to n. Sample:1..8 [1, 10, 11, 100, 101, 110, 111]
+
+public static String[] findBin(int number) {
+        String[] result = new String[number];
+        // Write -- Your -- Code
+        String binary="";
+        int num;
+        for(int i=0;i<number;i++){
+            binary="";
+            num=i+1;
+            while(true){
+                if(num ==1){
+                    result[i]="1"+binary;
+                    break;
+                }
+                binary=(num%2)+binary;
+                num=num/2;
+            }
+        }
+        return result; //For number = 3 , result = {"1","10","11"};
+    }
+
+==== Using Queue
+public static String[] findBin(int number) {
+        String[] result = new String[number];
+        // Write -- Your -- Code
+        Queue<String> q=new Queue<String>(number+1);
+        q.enqueue("1");
+        for(int i=0;i<number;i++){
+            result[i]=q.dequeue();
+            String s1=result[i]+"0";
+            String s2=result[i]+"1";
+            q.enqueue(s1);
+            q.enqueue(s2);
+        }
+
+        return result;
+    }
+=======
+
+Q.Reversing the First k Elements of a Queue ~ using stack
+
+public static <V> void reverseK(Queue<V> queue, int k) {
+        // Write -- Your -- Code
+        Stack<V> s=new Stack(k);
+        while(!s.isFull()){
+            s.push(queue.dequeue);
+        }
+        while(!s.isEmpty()){
+            queue.enqueue(s.pop());
+        }
+        int sizeSwitch=queue.GetCurrentSize()-k;
+        for(int i=0;i<sizeSwitch;i++){
+            queue.enqueue(queue.dequeue());
+        }
+    }
+
+=========
+Q. Queue design with Stack[2];
+class QueueWithStack <V> {
+    Stack<V> stack1;
+    Stack<V> stack2;
+
+    public QueueWithStack(int maxSize){
+        // Write -- Your -- Code
+        stack1=new Stack(maxSize);
+        stack2=new Stack(maxSize);
+    }
+
+    public void enqueue(V value){
+        // Write -- Your -- Code
+          if(!stack1.isFull()){
+              stack1.push(value);
+          }
+    }
+    public V dequeue(){
+    // Write -- Your -- Code
+        if(stack1.isEmpty()){
+            return null;
+        }
+        while(!stack1.isEmpty()){
+            stack2.push(stack1.pop());
+        }
+        V temp=stack2.pop();
+        while(!stack2.isEmpty()){
+            stack1.push(stack2.pop());
+        }
+        return temp;
+    }
+    public boolean isEmpty(){
+        //Write -- Your -- Code
+        if(stack1.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+}
+======= Optimize dequeue:
+if (isEmpty()){
+  return null;
+}
+else if (stack2.isEmpty()){
+  //if stack2 is empty, we pop all the elements
+  //from stack1 and push them to the stack2
+  while(!stack1.isEmpty()){
+    stack2.push(stack1.pop());
+  }
+  //finally, we return the top of stack2
+  return stack2.pop();
+}
+else{
+  //if none of the above conditions are true
+  //we will simply return the top of stack2
+  return stack2.pop();
+}
+=======
+
+Q Sort using stack;
+public static void sortStack(Stack<Integer> stack) {
+    // Write -- Your -- Code
+    Stack<Integer> temp = new Stack<>(stack.getMaxSize());
+    while(!stack.isEmpty()){
+        Integer hold=stack.pop();
+        while(!temp.isEmpty() && hold < temp.top()){
+            stack.push(temp.pop());
+        }
+        temp.push(hold);
+    }
+    while(!temp.isEmpty()){
+        stack.push(temp.pop());
+    }
+}
+
+=== Without create another Stack [O(n)^2]
+public static void insert(Stack<Integer> stack, int value) {
+      if(stack.isEmpty()|| value < stack.top())
+          stack.push(value);
+      else{
+          int temp = stack.pop();
+          insert(stack,value);
+          stack.push(temp);
+      }
+  }
+
+  public static Stack<Integer> sortStack(Stack<Integer> stack) {
+      if(!stack.isEmpty()) {
+          int value = stack.pop();
+          sortStack(stack);
+          insert(stack,value);
+      }
+      return stack;
+  }
+  ======
+
+Q. Expression Slove: evaluatePostFix(921*-8-4+) : 3
+
+public static int evaluatePostFix(String expression) {
+   Stack<Integer> s=new Stack(4);
+   for(int i=0;i<expression.length();i++){
+       char c=expression.charAt(i);
+       if(!Character.isDigit(c)){
+           int x=s.pop();
+           int y=s.pop();
+           switch(c){
+               case '+':
+                   s.push(x+y);
+                   break;
+               case '-':
+                   s.push(y - x);
+                   break;
+               case '*':
+                   s.push(y * x);
+                   break;
+               case '/':
+                   s.push(y / x);
+                   break;
+           }
+       }
+       else{
+           s.push(Character.getNumericValue(c));
+       }
+   }
+   return s.pop();
+}
+======
+
+Q.Next Greater Element using Stack
+
+public static int[] nextGreaterElement(int[] arr) {
+    int[] result = new int[arr.length];
+    // Write -- Your -- Code
+    Stack<Integer> s=new Stack<>(arr.length);
+    for (int i = arr.length - 1; i >= 0; i--) {
+        if(s.isEmpty()){
+            result[i]=-1;
+        }else if(arr[i]<s.top()){
+            result[i]=s.top();
+        }else{
+            while(!s.isEmpty() && arr[i]>s.top()){
+                s.pop();
+            }
+            if(s.isEmpty()){
+                result[i]=-1;
+            }else{
+                result[i]=s.top();
+            }
+        }
+        s.push(arr[i]);
+    }
+    return result;
+}
+
+-=====
+Q. Celebrity Problem using a Stack
+=
+
+Q.Balanced Parentheses using a Stack
+
+public static boolean isBalanced(String exp) {
+    // Write -- Your -- Code
+    Stack<Character> myStack=new Stack<>(exp.length());
+    for(int i=0; i<exp.length(); i++){
+        char c=exp.charAt(i);
+        if ( c == ')' || c == '}' || c == ']' ){
+            if (myStack.isEmpty()){
+                return false;
+            }
+            if((c == ')' && '('!= myStack.pop()) || (c == '}' && '{' != myStack.pop()) || ( c == ']' && '['!= myStack.pop() ) ){
+                return false;
+            }
+        }else{
+            System.out.println(c);
+            myStack.push(c);
+        }
+    }
+    if(myStack.isEmpty()){
+        return false;
+    }
+    return true;
+}
+
+========
+
+Q. Get min value using stack.
+public class MinStack {
+    int maxSize;
+    Stack<Integer> mainStack;
+    Stack<Integer> minStack;
+
+    //constructor
+    public MinStack(int maxSize) {
+        // Write -- Your -- Code
+        this.maxSize = maxSize;
+        mainStack=new Stack<>(maxSize);
+        minStack=new Stack<>(maxSize);
+    }
+    //removes and returns value from stack
+    public Integer pop(){
+        // Write -- Your -- Code
+        minStack.pop();
+        return mainStack.pop();
+    }
+    //pushes value into the stack
+    public void push(Integer value){
+        // Write -- Your -- Code
+        mainStack.push(value);
+        if(!minStack.isEmpty()){
+            if(minStack.top()<value){
+                minStack.push(minStack.top());
+            }else{
+                minStack.push(value);
+            }
+        }else{
+            minStack.push(value);
+        }
+    }
+    //returns minimum value in O(1)
+    public int min(){
+    // Write -- Your -- Code
+        return minStack.top();
+    }
+}
+=====
+
+==========================================================================================================NEXTDS
+
+Graph
+
+==========================================================================================================
+A graph is a set of vertices (nodes) that are connected to each other via edges
+Vertex: The structures for storing data in a graph.
+Edge: A pair(x,y) is called an edge, which indicates that vertex x is connected to vertex y. An edge may contain weight/cost, showing how much cost is required to traverse from vertex x to y.
+
+Graphs #
+* Undirected: In an undirected graph, the edges are bi-directional by default <---->
+
+* Directed: In a directed graph, the edges are unidirectional --->
+
+
+A bidirectional relationship has both an owning side and an inverse side. A unidirectional relationship has only an owning side.
+
+-----
+Graph Terminologies
+
+Degree of Vertex:
+
+In-Degree of Vertex: Total Number of incoming edges connected to a vertex.
+Out-Degree of Vertex: Total Number of outgoing edges connected to a vertex.
+
+Parallel Edges: Two or more edges that are incident to the same two vertices.
+
+Self Loop: Same endpoints of an edge, e.g., pair (x,x).
+
+======
+
+ Represent a Graph#
+* Adjacency Matrix
+* Adjacency List
+
+=======
+implement a Directed Graph in java using an Adjacency List:
+
+
+Variables #
+vertices to store the total number of vertices of the graph.
+
+adjacencyList to store an array of linked lists. Each index of the array represents a vertex of the graph, and the linked list represents the adjacent vertices.
+
+Methods #
+printGraph() method prints the graph (adjacency list).
+addEdge() creates a source and destination vertex and connects them with an edge.
+
+
+public class Graph{
+    int vertices; //Total number of vertices in graph
+    DoublyLinkedList<Integer> adjacencyList[]; //An array of linked lists to store adjacent vertices.
+
+    @SuppressWarnings("unchecked")
+    public Graph(int vertices) {
+        this.vertices = vertices;
+        adjacencyList = new DoublyLinkedList[vertices];
+
+        for (int i = 0; i < vertices; i++) {
+            adjacencyList[i] = new DoublyLinkedList<>();
+        }
+    }
+
+    public void addEdge(int source, int destination){
+        if (source < vertices && destination < vertices){
+        this.adjacencyList[source].insertAtEnd(destination);
+
+        //for undirected graph uncomment the line below
+        //this.adjacencyList[destination].insertAtEnd(source);
+        }
+    }
+    public void printGraph()
+    {
+        System.out.println(">>Adjacency List of Directed Graph<<");
+        for (int i = 0; i < vertices; i++)
+        {
+            if(adjacencyList[i]!=null){
+                System.out.print("|" + i + "| => ");
+
+                DoublyLinkedList<Integer>.Node temp = adjacencyList[i].getHeadNode();
+                while (temp != null)
+                {
+                    System.out.print("[" + temp.data + "] -> ");
+                    temp = temp.nextNode;
+                }
+                System.out.println("null");
+            }
+            else{
+
+                System.out.println("|" + i + "| => "+ "null");
+            }
+        }
+    }
+}
+====
+
+class HelloWorld {
+    public static void main( String args[] ) {
+        Graph g= new Graph(4);
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 3);
+        g.addEdge(2, 3);
+
+        g.printGraph();
+    }
+}
+==
+>>Adjacency List of Directed Graph<<
+|0| => [1] -> [2] -> null
+|1| => [3] -> null
+|2| => [3] -> null
+|3| => null
+
+-----------------
+
+Operation     Adjacency List  Adjacency Matrix
+Add Vertex    O(1)            O(V2)
+Remove Vertex O(V+E)          O(V2)
+Add Edge      O(1)            O(1)
+Remove Edge   O(E)            O(1)
+
+======
+Types of bipartite graphs #
+
+Complete Bipartite Graphs: A complete Bipartite graph connects each vertex from set V1 to each vertex from set V2.
+
+Star Graphs: A star graph is a complete bipartite graph if a single vertex belongs to one set, and all the remaining vertices belong to the other set.
+
+Acyclic Graphs: A graph with no cycles is called an acyclic graph.
+
+-======
+
+Graph Traversal Algorithms:
+-----
+* Breadth First Search (BFS)
+* Depth First Search (DFS)
+
+==== BFS O(V + E)
+
+queue | hashmap | TotalNumberVertices
+boolean visited[];
+
+for(int i=0;i<vertices;i++){
+  * initial value in queue:
+  * keep it in boolean array[]; visited[val]=true;
+  while(!queue.isEmpty){
+    * dequeue initial val: result += String.valuesOf(val) -> ;
+    * fetch the mapped values in it:
+    * enqueue mapped values from val; if !visited[val];
+    }
+  }
+
+=====
+
+Python:
+
+List | Queue | Graph[Persion] =[ List ]
+check 1 -> Queue.enqueue
+if not: Queue.dequeue and add in Queue: all friends of check 1
+
+=========
+
+
+Java::::::::::::::::::::::::::::
+Array -> DoublyLinkedList | Queue
+
+boolean visited[]=new boolean[g.vertices];
+for(int i=0;i<g.vertices;i++){
+  if (!visited[]){
+    result=result+BFS(g,i,visited[]);
+  }
+return result;
+}
+public static String bfs(Graph g,int val,boolean visited[]){
+  result="";
+  Queue<Integer> queue=new Queue(g.vertices);
+  queue.enqueue(val);
+
+  while(!queue.isEmpty()){
+    int currentNode=queue.dequeue();
+    result+=String.valueOf(currentNode);
+
+    DoublyLinkedList<>.Node temp;
+    if(g.adjacencyList[current_node] != null){
+      temp = g.adjacencyList[current_node].headNode;
+    }
+    while(temp != null){
+      if(!visited[temp.data]){
+        queue.enqueue(temp.data);
+        visited[temp.data] = true;
+      }
+      temp = temp.nextNode;
+    }
+  }
+
+  return result;
+}
+
+
+0 ->1 ->2 ->Null
+1 -> 3
+2 -> Null
+3 -> Null
+====
+
+
+====
+public static String bfs(Graph g) {
+    String result = "";
+
+    // Write - Your - Code
+    if(g.vertices < 1){
+      return result;
+    }
+
+    Queue<Integer> queue=new Queue<>(g.vertices);
+    queue.enqueue(0);
+    boolean visited[]=new boolean[g.vertices];
+
+    while(!queue.isEmpty()){
+      int current_node=queue.dequeue();
+      visited[current_node]=true;
+
+      result += String.valueOf(current_node);
+
+      DoublyLinkedList<Integer>.Node temp= null;
+      temp=g.adjacencyList[current_node].headNode;
+      while(temp!=null){
+        if(!visited[temp.data]){
+          queue.enqueue(temp.data);
+          visited[temp.data]=true;
+        }
+        temp=temp.nextNode;
+      }
+    }
+
+    return result;
+  }
+============ | The reason for using the wrapper function is to make sure we traverse all vertices even when they are not reachable from any other vertex in the graph.
+
+class CheckBFS {
+
+  //Breadth First Traversal of Graph g
+  public static String bfs(Graph g) {
+    String result = "";
+
+    // Write - Your - Code
+    if(g.vertices < 1){
+      return result;
+    }
+
+    boolean visited[]=new boolean[g.vertices];
+    for(int i=0;i<g.vertices;i++)
+        {
+            //Checking whether the node is visited or not
+            if(!visited[i])
+            {
+                result = result + bfsVisit(g, i, visited);
+            }
+        }
+        return result;
+    }
+
+  public static String bfsVisit(Graph g, int source, boolean[] visited) {
+    String result = "";
+    Queue<Integer> queue = new Queue<>(g.vertices);
+    queue.enqueue(source);
+    visited[source] = true;
+
+    while(!queue.isEmpty()){
+      int current_node=queue.dequeue();
+      result += String.valueOf(current_node);
+
+      DoublyLinkedList<Integer>.Node temp= null;
+      temp=g.adjacencyList[current_node].headNode;
+      while(temp!=null){
+        if(!visited[temp.data]){
+          queue.enqueue(temp.data);
+          visited[temp.data]=true;
+        }
+        temp=temp.nextNode;
+      }
+    }
+
+    return result;
+  }
+
+}
+========
+DFS [ using DoublyLinkedList/HashMap | array/hashMap | Stack ] ... where BFS is done with Queue !!!!
+
+class CheckDFS {
+    //Depth First Traversal of Graph g
+    public static String dfs(Graph g) {
+        String result = "";
+
+        // Write - Your - Code
+        if(g.vertices<1){
+            return result;
+        }
+
+        boolean visited[]=new boolean[g.vertices];
+
+        for(int i=0;i<g.vertices;i++){
+            if(!visited[i]){
+                result= result+ dfsVisit(g,i,visited);
+            }
+        }
+        return result;
+    }
+    public static String dfsVisit(Graph g,int val,boolean visited[]){
+        String result="";
+        Stack<Integer> stack=new Stack(g.vertices);
+        stack.push(val);
+        visited[val]=true;
+
+        while(!stack.isEmpty()){
+            int node=stack.pop();
+            result+=String.valueOf(node);
+
+            DoublyLinkedList<Integer>.Node temp=null;
+            temp=g.adjacencyList[node].headNode;
+
+            while(temp!=null){
+                if(!visited[temp.data]){
+                    stack.push(temp.data);
+                    visited[temp.data]=true;
+                }
+                temp=temp.nextNode;
+            }
+        }
+        return result;
+    }
+}
+
+======
+Q: Cycle Detection in a Directed Graph !!! I have used 2 stack and 2 boolean[]
+
+class CheckCycle {
+    public static boolean detectCycle(Graph g){
+        // Write -- Your -- Code
+        boolean visited[]=new boolean[g.vertices];
+        //boolean pass[]=new boolean[g.vertices];
+        for(int i=0;i<g.vertices;i++){
+            if(!visited[i]){
+                if(checkCycle(g,i,visited)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public static boolean checkCycle(Graph g, int val, boolean visited[]){
+
+        boolean pass[]=new boolean[g.vertices];
+
+        Stack<Integer> s=new Stack(g.vertices);
+        Stack<Integer> hold=new Stack(g.vertices);
+
+        s.push(val);
+        hold.push(val);
+        visited[val]=true;
+
+        while(!s.isEmpty()){
+            int current_node=s.pop();
+            pass[current_node]=true;
+
+            DoublyLinkedList<Integer>.Node temp=g.adjacencyList[current_node].headNode;
+            if(temp ==null){
+                while(hold.top()!=s.top()){
+                    pass[hold.pop()]=false;
+                }
+            }
+            while(temp!=null){
+                if(pass[temp.data]){
+                    return true;
+                }
+                if(visited[temp.data]){
+                    return false;
+                }
+                s.push(temp.data);
+                hold.push(temp.data);
+                visited[temp.data]=true;
+                pass[temp.data]=true;
+                temp=temp.nextNode;
+            }
+
+        }
+        return false;
+    }
+
+}
+
+==
+====================
+BFS: Queue
+DFS: Stack
+====================
+==
+Q. Find Mother Vertex !!!
+class CheckMotherVertex {
+
+  public static int findMotherVertex(Graph g){
+    // Write - Your - Code
+    boolean visited[]=new boolean[g.vertices];
+    int lastElement=0;
+    for(int i=0;i<g.vertices;i++){
+      if(!visited[i]){
+        dfs(g,i,visited);
+        lastElement=i;
+      }
+    }
+    Arrays.fill(visited, false);
+    dfs(g,lastElement,visited);
+    for(int i=0;i<g.vertices;i++){
+      if(!visited[i]){
+        return -1;
+      }
+    }
+    return lastElement;
+  }
+  public static void dfs(Graph g,int val,boolean visited[]){
+    Stack<Integer> s=new Stack(g.vertices);
+    s.push(val);
+    visited[val]=true;
+    while(!s.isEmpty()){
+      int currentNode=s.pop();
+      DoublyLinkedList<Integer>.Node temp=g.adjacencyList[currentNode].headNode;
+      while(temp !=null){
+        if(!visited[temp.data]){
+          visited[temp.data]=true;
+          s.push(temp.data);
+        }
+        temp=temp.nextNode;
+      }
+    }
+  }
+}
+====
+
+==========================================================================================================NEXTDS
+
+* Tree !!!
+
+==========================================================================================================
+
+Nodes: Hold data
+Root: The uppermost node of a tree
+Parent Node: A node which is connected to one or more nodes on the lower level (Child Nodes).
+Child Node: A node which is linked to an upper node (Parent Node)
+Sibling Node: Nodes that have the same Parent Node
+Leaf Node – A node that doesn’t have any Child Node
+
+Sub-tree:
+A subtree is a portion of a tree that can be viewed as a complete tree on its own. Any node in a tree, together with all the connected nodes below it, comprise a subtree of the original tree. Think of the sub-tree as an analogy for the term, proper subset.
+
+Degree:
+The degree of a node refers to the total number of sub-trees of a node
+
+Depth:
+The number of connections (edges) from the root to a node is known as the depth of that node.
+
+Level:
+(Depth Of Node) + 1
+
+Height of a Node:
+The maximum number of connections between the node and a leaf node in its path is known as the height of that node.
+
+Height of a Tree:
+The height of a tree is simply the height of its root node.
+
+==========
+
+* N-ary Tree: Total Num of Child connected with Root
+
+* Binary Tree: 0-2 Child is |1. Complete Binary Tree |2. Full Binary Tree |3. Perfect Binary Tree
+
+* Balanced Tree: Height(Tree)=O(log2(nodes))   or ∣Height(LeftSubTree)−Height(RightSubTree)∣<=1
+
+* BinarySearchTree:
+insert()
+search()
+delete()
+
+
+* AVL Tree:
+
+* Red-Black Tree:
+
+* 2-3 Tree:
+
+=======
+
+Types of Binary Trees#
+
+==========
+BST Implementation:
+====================================================================
+class binarySearchTreeDemo {
+
+  public static void main(String args[]) {
+
+    binarySearchTree bsT = new binarySearchTree();
+    bsT.add(6);
+    bsT.add(4);
+    bsT.add(9);
+    bsT.add(5);
+    bsT.add(2);
+    bsT.add(8);
+    bsT.add(12);
+    bsT.add(10);
+    bsT.add(14);
+    bsT.printTree(bsT.getRoot());
+
+  }
+}
+====================================================================
+class Node{
+
+//Variables
+  private  int data;
+  Node leftChild;
+  Node rightChild;
+
+//Constructor
+  Node(int value){
+    this.data=value;
+    leftChild=null;
+    rightChild=null;
+  }
+
+//Getter-Setter
+  public Node getLeftChild(){return leftChild;}
+  public Node getRightChild(){return rightChild;}
+  public int  getData(){return data;}
+  public void setData(int value){this.data=value;}
+  public void setLeftChild(Node left){this.leftChild=left;}
+  public void setRightChild(Node right){this.rightChild=right;}
+}
+====================================================================Resursive Insert O(log)n
+class binarySearchTree {
+
+  private Node root;
+
+
+  public Node getRoot() {
+    return root;
+    }
+
+
+  public void setRoot(Node root) {
+    this.root = root;
+  }
+
+  //Recursive function to insert a value in BST
+  public Node recursive_insert(Node currentNode, int value) {
+
+    //Base Case
+    if (currentNode == null) {
+      return new Node(value);
+    }
+
+    if (value < currentNode.getData()) {
+      //Iterate left sub-tree
+      currentNode.setLeftChild(recursive_insert(currentNode.getLeftChild(), value));
+    } else if (value > currentNode.getData()) {
+      //Iterate right sub-tree
+      currentNode.setRightChild(recursive_insert(currentNode.getRightChild(), value));
+    } else {
+      // value already exists
+      return currentNode;
+    }
+
+    return currentNode;
+
+  }
+
+  //Function to call recursive insert
+  public boolean add(int value) {
+
+    root = recursive_insert(this.root, value);
+    return true;
+  }
+
+  //Function to check if Tree is empty or not
+  public boolean isEmpty()
+    {
+    return root == null; //if root is null then it means Tree is empty
+  }
+
+  //Just for Testing purpose
+  public void printTree(Node current)
+    {
+    if (current == null) return;
+
+    System.out.print(current.getData() + ",");
+    printTree(current.getLeftChild());
+    printTree(current.getRightChild());
+
+  }
+}
+====================================================================Iterative O(n)
+class binarySearchTree {
+
+  private Node root;
+
+  public Node getRoot() {
+    return root;
+    }
+
+  public void setRoot(Node root) {
+    this.root = root;
+  }
+
+  //Iterative Function to insert a value in BST
+  public boolean add(int value) {
+
+    //If Tree is empty then insert Root with the given value inside Tree
+    if (isEmpty()) {
+      root = new Node(value);
+      return true;
+    }
+
+    //Starting from root
+    Node currentNode = root;
+
+    //Traversing the tree untill valid position to insert the value
+    while (currentNode != null) {
+
+      Node leftChild = currentNode.getLeftChild();
+      Node rightChild = currentNode.getRightChild();
+
+      //If the value to insert is less than root value then move to left subtree
+      //else move to right subtree of root
+      //and before moving check if the subtree is null, if it's then insert the value.
+      if (currentNode.getData() > value) {
+        if (leftChild == null) {
+          leftChild = new Node(value);
+          currentNode.setLeftChild(leftChild);
+          return true;
+        }
+        currentNode = leftChild;
+      } else {
+        if (rightChild == null) {
+          rightChild = new Node(value);
+          currentNode.setRightChild(rightChild);
+          return true;
+        }
+        currentNode = rightChild;
+      } //end of else
+    } //end of while
+    return false;
+  }
+
+  //Function to check if Tree is empty or not
+  public boolean isEmpty()
+    {
+    return root == null; //if root is null then it means Tree is empty
+  }
+
+  //Just for Testing purpose
+  public void printTree(Node current)
+    {
+    if (current == null) return;
+
+    System.out.print(current.getData() + ",");
+    printTree(current.getLeftChild());
+    printTree(current.getRightChild());
+    //System.out.println("End");
+
+  }
+}
+====================================================================
+
+====================================================================Recursive Search
+public Node searchRecursive(Node currentNode, int value){
+    // if node is null or value is found then return node
+    if (currentNode==null || currentNode.getData() == value)
+      return currentNode;
+
+    // if value is less than node's data then search left sub-tree
+    if (currentNode.getData() > value){
+      return searchRecursive(currentNode.getLeftChild(), value);
+    }
+    else{
+    // if value is greater than node's data then search right sub-tree
+      return searchRecursive(currentNode.getRightChild(), value);
+    }
+  }
+====================================================================
+
+====================================================================Iterative Search
+public Node search(int value) {
+
+    if (isEmpty()) return null; // if tree is empty simply return null
+
+    Node currentNode = this.root;
+
+    while (currentNode != null) {
+
+      if (currentNode.getData() == value) return currentNode; // compare data from current node
+
+      if (currentNode.getData() > value) //if data from current node is greater than value
+        currentNode = currentNode.getLeftChild(); // then move towards left subtree
+      else
+        currentNode = currentNode.getRightChild(); //else move towards right subtree
+    }
+    System.out.println(value + " Not found in the Tree!");
+    return null;
+  }
+
+  ====================================================================
+
+Travelsal BST
+
+============== [6,4,2,5,9,8,12]
+  public static void preTraverse(Node root) {
+
+    if (root == null) return;
+
+    System.out.print(root.getData() + ",");
+      preTraverse(root.getLeftChild());
+      preTraverse(root.getRightChild());
+
+  }
+============== [2,4,5,6,8,9,12]
+  public static void inTraverse(Node root) {
+
+    if (root == null) return;
+
+    inTraverse(root.getLeftChild());
+    System.out.print(root.getData() + ",");
+    inTraverse(root.getRightChild());
+
+  }
+============== [2,5,4,8,12,9,6]
+  public static void postTraverse(Node root) {
+
+    if (root == null) return;
+
+    postTraverse(root.getLeftChild());
+    postTraverse(root.getRightChild());
+    System.out.print(root.getData() + ",");
+
+  }
+==============
+
+AVL Tree
+
+Insertion for an AVL tree follows the same steps that we covered in BST insertion.
+The main step comes after insertion when the tree gets unbalanced.
+
+Node U – an unbalanced node
+Node C – child node of node U
+Node G – grandchild node of node U
+
+==============
+
+Red-Black Trees#
+
+Every node has either Red or Black color.
+
+The root is always colored black.
+
+Two red nodes cannot be adjacent, i.e. no red parent can have a red child and vice versa.
+
+Every path from the root to a leaf must contain the exact same number of black-colored nodes.
+
+Every null node is considered to be black in color.
+
+====
+Q: Fetch minNode from BST:
+class CheckMin
+{
+  public static int findMin(Node root){
+    // Write - Your - Code
+    Node currentNode=root;
+    if(currentNode==null){
+      return -1;
+    }
+    while(currentNode.getLeftChild() != null){
+      currentNode=currentNode.getLeftChild();
+    }
+    return currentNode.getData();
+  }
+}
+======
+
+Q: Find kth highest Number:
+class CheckKthMax {
+
+class CheckKthMax {
+
+  public static int findKthMax(Node root, int k) {
+
+    // Write - Your - Code
+    StringBuilder result=new StringBuilder();
+    result=inOrderTravelsal(root,result);
+    String[] a=result.toString().split(",");
+    if(a.length -k >= 0){
+      return Integer.parseInt(a[a.length -k]);
+    }
+    return -1;
+  }
+  public static StringBuilder inOrderTravelsal(Node root,StringBuilder result){
+    if(root.getLeftChild()!=null){
+      inOrderTravelsal(root.getLeftChild(),result);
+    }
+    result.append(root.getData()+",");
+    if(root.getRightChild()!=null){
+      inOrderTravelsal(root.getRightChild(),result);
+    }
+    return result;
+  }
+}
+------------
+  public static void main(String args[]) {
+
+    binarySearchTree bsT = new binarySearchTree();
+
+    bsT.add(6);
+
+    bsT.add(4);
+    bsT.add(9);
+    bsT.add(5);
+    bsT.add(2);
+    bsT.add(8);
+
+    System.out.println(findKthMax(bsT.getRoot(),3));
+  }
+}
+======
+Q. Ancestors of Given Node in Binary Search Tree
+
+class CheckAncestors {
+  public static String findAncestors(Node root, int k) {
+    String result="";
+    Node tempNode=root;
+
+    if(tempNode == null){
+      return "";
+    }
+
+    while (tempNode != null && tempNode.getData() != k ){
+      result=result+ tempNode.getData()+ ",";
+      if(k<=tempNode.getData()){
+        tempNode=tempNode.getLeftChild();
+      }else{
+        tempNode=tempNode.getRightChild();
+      }
+    }
+    return result;
+  }
+}
+==========
+
+Q. Get Height:
+class CheckHeight {
+
+  public static int findHeight(Node root) {
+
+    // Write - Your - Code
+    if(root == null){
+      return -1;
+    }
+    return 1+ Math.max(findHeight(root.getLeftChild()),findHeight(root.getRightChild()));
+  }
+}
+======
+
+Q.At heaight:k print Nodes data.
+
+class CheckKNodes {
+
+  public static String findKNodes(Node root, int k) {
+    String result="";
+    if(root == null){
+      return result;
+    }
+    if (k == 0) {
+      System.out.print(root.getData() + ",");
+    }
+    else {
+      findKNodes(root.getLeftChild(), k - 1);
+      findKNodes(root.getRightChild(), k - 1);
+    }
+    return result;
+  }
+}
+====
+
+
+Heap
+
+Heap = Complete Binary Tree
+A Heap tree must be a Complete Binary Tree.
+The nodes must be ordered according to the Heap Property.
+
+: Complete Binary Tree is a tree where each node has a max. of two children and nodes at all levels are completely filled (except the leaf nodes). But the nodes at the last level must be structured in such a way that the left side is never empty. This is the only condition that differentiates Complete Binary Trees from other trees.
+
+
+class Heap{
+  public static void main(String args[]){
+    int[] heapArray={1, 4, 7, 12, 15, 14, 9, 2, 3, 16};
+    System.out.println(Arrays.toString(healArray));
+
+    new Heap().buildMaxHeap(heapArray,heapArray.leangth);
+
+    System.out.println(Arrays.toString(heapArray));
+  }
+
+  public void buildMaxHeap(int[] heapArray,int heapSize){
+
+    for (int i=(heapSize-1)/2,i>=0,i--){
+      maxHeapify(heapArray,i,heapSize);
+    }
+  }
+
+  public void maxHeapify(int[],int index,int heapSize ){
+
+    int larget=index;
+
+    while(larget <heapSize/2){
+      int left=(index *2)+1;
+      int right=(index*2)+2;
+
+      if(left < heapSize && heapArray[left]>heapArray[index]){
+        largest=left;
+      }
+      if(right < heapSize  && heapArray[right] > heapArray[largest]){
+        largest=right;
+      }
+
+      if(largest !=index){
+        int temp=heapArray[index];
+        heapArray[index]=heapArray[largest];
+        heapArray[largest]=temp;
+        index=largest;
+      }else{
+        break;
+      }
+    }
+  }
+}
+===
+
+MinHeap
+import java.util.Arrays;
+
+class Heap {
+
+  private void minHeapify(int[] heapArray, int index, int heapSize) {
+    int smallest = index;
+
+    while (smallest < heapSize / 2) { // check parent nodes only
+      int left = (2 * index) + 1; //left child
+      int right = (2 * index) + 2; //right child
+      if (left < heapSize && heapArray[left] < heapArray[index]) {
+        smallest = left;
+      }
+
+      if (right < heapSize && heapArray[right] < heapArray[smallest]) {
+        smallest = right;
+      }
+
+      if (smallest != index) { // swap parent with smallest child
+        int temp = heapArray[index];
+        heapArray[index] = heapArray[smallest];
+        heapArray[smallest] = temp;
+        index = smallest;
+      } else {
+        break; // if heap property is satisfied
+      }
+
+    } //end of while
+  }
+
+  public void buildMinHeap(int[] heapArray, int heapSize) {
+
+    // swap smallest child to parent node
+    for (int i = (heapSize - 1) / 2; i >= 0; i--) {
+      minHeapify(heapArray, i, heapSize);
+    }
+  }
+
+  public static void main(String[] args) {
+    int[] heapArray = { 31, 11, 7, 12, 15, 14, 9, 2, 3, 16 };
+
+    System.out.println("Before heapify: "+Arrays.toString(heapArray));
+    new Heap().buildMinHeap(heapArray, heapArray.length);
+    System.out.println("After heapify: "+Arrays.toString(heapArray));
+
+  }
+}
+=====
+Convert Min to Max:
+class CheckConvert {
+
+  public static void convertMax(int[] maxHeap) {
+
+    //Consider maxHeap just an ordinary unsorted array
+    //Build minHeap of the given array. (We already covered that in previous lesson)
+    //Return converted array in String format
+    buildMinHeap(maxHeap, maxHeap.length);
+  }
+
+  private static void buildMinHeap(int[] heapArray, int heapSize) {
+
+    // swap smallest child to parent node
+    for (int i = (heapSize - 1) / 2; i >= 0; i--) {
+      minHeapify(heapArray, i, heapSize);
+    }
+  }
+
+  private static void minHeapify(int[] heapArray, int index, int heapSize) {
+    int smallest = index;
+
+    while (smallest < heapSize / 2) { // check parent nodes only
+      int left = (2 * index) + 1; //left child
+      int right = (2 * index) + 2; //right child
+      if (left < heapSize && heapArray[left] < heapArray[index]) {
+        smallest = left;
+      }
+
+      if (right < heapSize && heapArray[right] < heapArray[smallest]) {
+        smallest = right;
+      }
+
+      if (smallest != index) { // swap parent with largest child
+        int temp = heapArray[index];
+        heapArray[index] = heapArray[smallest];
+        heapArray[smallest] = temp;
+        index = smallest;
+      } else {
+        break; // if heap property is satisfied
+      }
+    } //end of while
+  }
+}
+
+===
+ Q.1st 2 big number:
+
+//Build maxHeap of the given array.
+//Extract the maximum element/root and add it to the result
+//Reduce the length of array and repeatedly build maxHeap till we reach K.
+class CheckLarge
+{
+  public static int[] findKLargest(int[] arr, int k) {
+    System.out.println(Arrays.toString(arr));
+    int arraySize = arr.length;
+    if ( k <= arraySize) {
+      int[] result = new int[k];  // build the result array of size = k
+      for (int i = 0; i < k; i++) {
+        buildMaxHeap(arr, arraySize);
+        result[i] = arr[0];
+        arr[0] = arr[--arraySize];
+      }
+      System.out.println(Arrays.toString(arr));
+      return result;
+    }
+    System.out.println("Value of k = " + k + "Out of Bounds");
+    return arr;
+  }
+
+  private static void buildMaxHeap(int[] heapArray, int heapSize) {
+
+    // swap largest child to parent node
+    for (int i = (heapSize - 1) / 2; i >= 0; i--) {
+      maxHeapify(heapArray, i, heapSize);
+    }
+  }
+
+  private static void maxHeapify(int[] heapArray, int index, int heapSize) {
+    int largest = index;
+
+    while (largest < heapSize / 2) { // check parent nodes only
+      int left = (2 * index) + 1; //left child
+      int right = (2 * index) + 2; //right child
+      if (left < heapSize && heapArray[left] > heapArray[index]) {
+        largest = left;
+      }
+
+      if (right < heapSize && heapArray[right] > heapArray[largest]) {
+        largest = right;
+      }
+
+      if (largest != index) { // swap parent with largest child
+        int temp = heapArray[index];
+        heapArray[index] = heapArray[largest];
+        heapArray[largest] = temp;
+        index = largest;
+      } else {
+        break; // if heap property is satisfied
+      }
+
+    } // end of while
+  }
+
+  public static void main(String args[]) {
+    int[] input = {9, 4, 7, 1, -2, 6, 5};
+    int[] output = findKLargest(input, 2);
+
+    for(int i = 0; i < output.length; i++)
+      System.out.println(output[i]);
+  }
+
+}
+===
+Output
+[9, 4, 7, 1, -2, 6, 5]
+[5, 4, 6, 1, -2, 5, 5]
+9
+7
+
+
+
+Hash Table!!!
+
+class Hashing {
+   public static String getValue(int key)
+   {
+    String [] myString = // pun intended
+    {
+      "I am a programmer, I have no life.",
+      "8 bytes walk into a bar, the bartenders asks \"What will it be?\"One of them says, \"Make us a double.\"",
+      "Computers are useless. They can only give you answers.\n-Pablo Picasso"
+    };
+    if (key <= myString.length)
+      return myString[key];    // value returned in constant time
+    else
+      System.out.println("Key Not Found!\n");
+     return "";
+  }
+    public static void main( String args[] )
+    {
+        System.out.println( getValue(1) ); // Test your output for other keys
+    }
+}
+
+Hash Function#:
+* We can consider the Hash function as a method that takes key as an input and returns the corresponding index to that key.
+  Commonly Used Hash Functions#
+
+Arithmetic Modular#
+
+public static int hashModular(int key, int size)
+  {
+    return key % size;
+  }
+  public static void main( String args[] )
+  {
+    int [] list = new int[10];// List of size 10
+    int key = 35;
+    int index = hashModular(key, 10); // Fit the key into the list size
+    System.out.println("The index for key " + key + " is " + index);
+  }
+
+
+Size of the Hash Table#
+
+Collision Handling Method#
+
+Linear Probing
+Chaining
+Re-sizing the Array
+
+
+----
+class CheckSubset
+{
+  static boolean isSubset(int arr1[], int arr2[])
+  {
+    HashSet<Integer> hset= new HashSet<>();
+    // hset stores all the values of arr1
+    for(int i = 0; i < arr1.length; i++)
+    {
+      if(!hset.contains(arr1[i]))
+        hset.add(arr1[i]);
+    }
+
+    // loop to check if all elements of arr2 also
+    // lies in arr1
+    for(int i = 0; i < arr2.length; i++)
+    {
+      if(!hset.contains(arr2[i]))
+        return false;
+    }
+    return true;
+  }
+}
+----====----
+class CheckDisjoint {
+
+  public static boolean isDisjoint(int[] arr1, int[] arr2) {
+
+    //Create an HashSet and store all values of arr1
+    HashSet < Integer > hSet = new HashSet < >();
+
+    for (int i = 0; i < arr1.length; i++) {
+      if (!hSet.contains(arr1[i])) hSet.add(arr1[i]);
+    }
+
+    //Traverse arr2 and check if arr1 contains any arr2 element
+    for (int i = 0; i < arr2.length; i++) {
+      if (hSet.contains(arr2[i])) return false;
+    }
+    return true;
+  }
+}
+----===----
+class CheckSymmetric {
+
+  public static String findSymmetric(int[][] arr)
+  {
+    //Create an empty Hash Map
+    //Traverse given Array
+    //Look for second element of each pair in the hash. i.e for pair (1,2) look for key 2 in map.
+    //If found then store it in the result array, otherwise insert the pair in hash
+    HashMap < Integer,Integer > hashMap = new HashMap < Integer,Integer >();
+
+    String result = "";
+
+    //Traverse through the given array
+    for (int i = 0; i < arr.length; i++)
+    {
+      int first = arr[i][0];
+      int second = arr[i][1];
+
+      Integer value = hashMap.get(second);
+
+      if (value != null && value == first)
+      {
+        //Symmetric Pair found
+        result += "{" + String.valueOf(second) + "," + String.valueOf(first) + "}";
+      }
+      else
+        hashMap.put(first, second);
+    }
+    return result;
+  }
+
+}
+------====-----

@@ -54,7 +54,7 @@ public class MultiDArray_2 {
             }
         }
 
-        //8.1 Student mark count and get topper from 8 studets answer sheet sAnswer.
+        //8.1 Student mark count and get topper from 8 students answer sheet sAnswer.
         char[][] sAnswers = {
                 {'A', 'B', 'A', 'C', 'C', 'D', 'E', 'E', 'A', 'D'},
                 {'D', 'B', 'A', 'B', 'C', 'A', 'E', 'E', 'A', 'D'},

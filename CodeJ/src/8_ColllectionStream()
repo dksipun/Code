@@ -1,0 +1,314 @@
+collections as streams
+
+
+Stream formation: stream()
+
+Converting a stream into an integer stream: mapToInt(value -> another)
+
+Filtering values: filter(value -> filter condition)
+
+Calculating the average: average()
+
+Counting the number of elements in a stream: count()
+
+//Print the ArrayList of data using steam()
+ ArrayList<Integer> list = new ArrayList<>();
+        list.add(3);
+        list.add(7);
+        list.add(4);
+        list.add(2);
+        list.add(6);
+        //System.out.println(list.stream().count());
+        list.stream()
+                .filter(s->s>5)
+                .forEach(v-> System.out.println(v));
+-------------
+Collect the +ve num in another ArrayList using steam()
+List<Integer> values = new ArrayList<>();
+values.add(3);
+values.add(2);
+values.add(-17);
+values.add(-6);
+values.add(8);
+
+ArrayList<Integer> positives = values.stream()
+    .filter(value -> value > 0)
+    .collect(Collectors.toCollection(ArrayList::new));
+
+positives.stream()
+    .forEach(value -> System.out.println(value));
+
+==============
+// suppose we have a list of persons
+// ArrayList<Person> persons = new ArrayList<>();
+
+persons.stream()
+    .map(person -> person.getFirstName())
+    .distinct()
+    .sorted()
+    .forEach(name -> System.out.println(name));
+=======
+
+Sample:
+long numbersDivisibleByThree = inputs.stream()
+    .mapToInt(s -> Integer.valueOf(s))
+    .filter(number -> number % 3 == 0)
+    .count();
+double average = inputs.stream()
+    .mapToInt(s -> Integer.valueOf(s))
+    .average()
+    .getAsDouble();
+
+-------=================
+
+-------=================
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class AverageOfSelectedNumbers {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // toteuta ohjelmasi tänne
+        ArrayList<String> inputs=new ArrayList<>();
+        while (true){
+            String row=scanner.nextLine();
+            if (row.equals("end")){
+                break;
+            }
+            inputs.add(row);
+        }
+
+        double avgpnum=inputs.stream()
+                .mapToInt(s -> Integer.valueOf(s))
+                .filter(number -> number > 0)
+                .average()
+                .getAsDouble();
+        double avgnnum=inputs.stream()
+                .mapToInt(s -> Integer.valueOf(s))
+                .filter( num -> num <0)
+                .average()
+                .getAsDouble();
+        System.out.println("Print the average of the negative numbers or the positive numbers? (n/p)");
+        String i=scanner.nextLine();
+        if(i.equals("n")){
+            System.out.println("Average of the negative numbers: " +avgnnum);
+        }else {
+            System.out.println("Average of the negative numbers: " +avgpnum);
+        }
+    }
+}
+
+-------=================
+
+-------=================
+
+// original
+*stream*.filter(value -> value > 5).*furtherAction*
+
+// is the same as
+*stream*.filter((Integer value) -> {
+    if (value > 5) {
+        return true;
+    }
+
+    return false;
+}).*furtherAction*
+
+// is the same as
+*stream*.filter(value -> Screeners.greaterThanFive(value)).*furtherAction*
+
+public class Screeners {
+    public static boolean greaterThanFive(int value) {
+        return value > 5;
+    }
+}
+
+// is the same as
+*stream*.filter(Screeners::greaterThanFive).*furtherAction*
+
+
+-------=================
+
+-------=================
+
+Stream Methods:
+(1) intermediate operations intended for processing elements
+(2) terminal operations that end the processing of elements
+
+
+--
+ArrayList<Integer> getPosNumbers = numbers.stream()
+                    .filter(i -> i > 0)
+                    .collect(Collectors.toCollection(ArrayList::new ));
+
+            return getPosNumbers;
+
+
+========
+List<Integer> values = new ArrayList<>();
+values.add(3);
+values.add(2);
+values.add(17);
+values.add(6);
+values.add(8);
+
+System.out.println("Values: " + values.stream().count());
+
+//forEach
+values.stream()
+    .filter(value -> value % 2 == 0)
+    .forEach(value -> System.out.println(value));
+
+//collect :  to collect stream values into another collection
+List<Integer> values = new ArrayList<>();
+values.add(3);
+values.add(2);
+values.add(-17);
+values.add(-6);
+values.add(8);
+
+ArrayList<Integer> positives = values.stream()
+    .filter(value -> value > 0)
+    .collect(Collectors.toCollection(ArrayList::new));
+
+positives.stream()
+    .forEach(value -> System.out.println(value));
+
+=========
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+public class Divisible {
+
+    public static void main(String[] args) {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        numbers.add(3);
+        numbers.add(2);
+        numbers.add(-17);
+        numbers.add(-5);
+        numbers.add(7);
+
+        ArrayList<Integer> divisibles = divisible(numbers);
+
+        divisibles.stream()
+                .forEach(luku -> System.out.println(luku));
+    }
+
+    public static ArrayList<Integer> divisible(ArrayList<Integer> number) {
+        ArrayList<Integer> isDivisbleNumbers = number.stream()
+                .filter(n->n%2==0 || n%3==0 || n%5==0)
+                .collect(Collectors.toCollection(ArrayList::new));
+        return isDivisbleNumbers;
+    }
+
+}
+
+=====
+// reduce method: is useful when you want to combine stream elements to some other form. The parameters accepted by the method have the following format: reduce(*initialState*, (*previous*, *object*) -> *actions on the object*).
+
+ArrayList<Integer> values = new ArrayList<>();
+values.add(7);
+values.add(3);
+values.add(2);
+values.add(1);
+
+int sum = values.stream()
+    .reduce(0, (previousSum, value) -> previousSum + value);
+System.out.println(sum);
+
+=====
+Intermediate stream: are methods that return a stream. Since the value returned is a stream, we can call intermediate operations sequentially.
+
+public class Person {
+    private String firstName;
+    private String lastName;
+    private int birthYear;
+
+    public Person(String firstName, String lastName, int birthYear) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthYear = birthYear;
+    }
+
+// suppose we have a list of persons
+Problem 1: You'll receive a list of persons. Print the number of persons born before the year 1970.
+
+long count = persons.stream()
+    .filter(person -> person.getBirthYear() < 1970)
+    .count();
+System.out.println("Count: " + count);
+
+Problem 2: You'll receive a list of persons. How many persons' first names start with the letter "A"?
+long count=persons.stream()
+	.filter(person -> person.getFirstName().startsWith("A"))
+	.count();
+System.out.println("Count: "+count)
+-----
+
+Problem 3: You'll receive a list of persons. Print the number of unique first names in alphabetical order
+persons.stream()
+    .map(person -> person.getFirstName())
+    .distinct()
+    .sorted()
+    .forEach(name -> System.out.println(name));
+===
+inputs.stream()
+                .mapToInt(n -> Integer.valueOf(n))
+                .filter(n -> n>0 && n<6)
+                .forEach(n -> System.out.println(n));
+
+====
+List<String> rows = new ArrayList<>();
+
+try {
+    Files.lines(Paths.get("file.txt")).forEach(row -> rows.add(row));
+} catch (Exception e) {
+    System.out.println("Error: " + e.getMessage());
+}
+
+//
+
+
+Comparable Interface
+
+public class Member implements Comparable<Member> {
+    private String name;
+    private int height;
+
+    public Member(String name, int height) {
+        this.name = name;
+        this.height = height;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+    @Override
+    public String toString() {
+        return this.getName() + " (" + this.getHeight() + ")";
+    }
+
+    @Override
+    public int compareTo(Member member) {
+        if (this.height == member.getHeight()) {
+            return 0;
+        } else if (this.height > member.getHeight()) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+}
+--===--
+public class Person implements Identifiable, Comparable<Person> {
+    private String name;
+    private String socialSecurityNumber;
+----=====---

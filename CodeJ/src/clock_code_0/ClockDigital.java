@@ -16,7 +16,6 @@ public class ClockDigital {
         this.sec=0;
     }
 
-
     public void advance(){
         this.sec++;
         if(this.sec >=59){

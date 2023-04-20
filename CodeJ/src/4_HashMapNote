@@ -1,18 +1,40 @@
+import java.util.HashMap;
 HashMap
+HashTable
+
+HashSet
+
+
+//Hash Set Functions => {add(), remove(), contains()}
+//Hash Map and Table Functions => {put(key,value), get(key), remove(key), containsKey(key), containsValue(value)}
+
+
 
 HashCode();
 
+HashSet<Integer> values=new HashSet<>();
+if(!hset.contains(arr1[i]))
+        hset.add(arr1[i]);
+        ->In order
 
 HashMap<Ref_variable,Ref_variable> var=new HashMap<>();
 
 var.put(“Sipun”,”123456”);
 
-Sustem.out.println( var.get(“Sipun”));
+System.out.println( var.get(“Sipun”));
+
+var.replace(“Sipun”,"99999”);
+
+var.containsKey("Sipun"); true
 
 var.remove("Sipun");
 
+var.containsKey("Sipun"); false
+
 For get Keys: keySet()
 For get values: values()
+
+var.replace("Kris",9999);
 
 For Each Loop on HAshMap: keySet() method
 for(String bookTitle : this.directory.keySet()) {
@@ -22,12 +44,12 @@ for(String bookTitle : this.directory.keySet()) {
 
 Create ArrayList in the Value of Keys:
 public void add(String word, String translation){
-        if(disconary.containsKey(word)){
+        if(disconary.containsKey(word)){                                            //
             disconary.get(word).add(translation);
         }
         else {
-            disconary.put(word,new ArrayList<>());
-            ArrayList<String> temp=disconary.get(word);
+            disconary.put(word,new ArrayList<>());                                  //
+            ArrayList<String> temp=disconary.get(word);                             //
             temp.add(translation);
         }
     }
@@ -57,7 +79,6 @@ public int hashCode() {
     if (this.name == null) {
         return this.published;
     }
-
     return this.published + this.name.hashCode();
 }
 Now: System.out.println(borrowers.get(new Book("Test Driven Development", 1999, "...")));  —> Arto
@@ -101,4 +122,3 @@ public boolean equals(Object comparedObject) {
         // otherwise, the objects aren't the same
         return false;
     }
-

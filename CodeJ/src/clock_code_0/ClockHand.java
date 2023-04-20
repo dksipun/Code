@@ -9,6 +9,7 @@ public class ClockHand {
         this.limit=limit;
     }
 
+
     public ClockHand(int limit,int value){
         this.value=value;
         this.limit=limit;

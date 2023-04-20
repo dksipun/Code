@@ -1,0 +1,199 @@
+System Design
+
+* Tier Application
+	Single Tier: All component[ UI, BackEnd Service, DB] in Same Server.
+		+ No Network Latency
+		+ User's data Data Secure
+
+		- Application publisher has no control over the application.
+		- Application source code not secure
+
+	Two-Tier: user interface and business logic on the client
+		+ Game on mobile [ code on client mobile], uses backend call for getting the status
+
+	Three-Tier Applications: Largely used on the web. Almost all simple websites like blogs, news websites, etc., are part of this category.
+		+ UI is written using HTML, JavaScript, and CSS ..
+		+ Backend application logic will run on a server like Apache ..
+		+ Database will be MySQL ..
+
+	N-tier applications [ Distributed Systems ][Single responsibility principle]:
+		+ Having more components like [ Cache, Message queues, Load balancers, Search servers, Microservices ]
+
+
+	* Having loosely coupled components is the way to go. This approach enables us to scale our service easily when things grow beyond a certain scale in the future.
+
+	Layers & Tiers:
+	The difference between layers and tiers is that layers represent the conceptual/logical organization of the code, whereas tiers represent the physical separation of components.
+
+* Web Architecture
+	Web architecture involves multiple components like a database, message queue, cache, user interface, etc., all running in conjunction to form an online service.
+
+	Client-Server Architecture: Work with request-response model [HTTP Protocol / Rest API]. The client sends the request to the server for information and the server responds with it.
+
+	Web Server: Servers running web-app is known as application servers.
+		Besides the application servers, there are also other kinds of servers with specific tasks assigned. These include:
+			Proxy server
+			Mail server
+			File server
+			Virtual server
+			Data storage server
+			Batch job server and so on
+		For Java application: Jetty or Tomcat
+		For Simple Website: Apache HTTP Server
+
+	ServerSide-Rendering: Often the developers use a server to render the user interface on the backend and then send the generated data to the client. This technique is known as server-side rendering.
+
+	HTTP Push and Pull: The client doesn’t know that, so naturally, it would keep sending the requests to the server over and over. This is not ideal and a waste of resources. Excessive pulls by the clients have the potential to bring down the server.
+		 The client phones the server for information. The server responds, “Hey!! I don’t have the information right now, but I’ll call you back whenever it is available”.
+
+		 HTTP PUSH-based mechanism:
+		 	Ajax Long polling
+			Web Sockets
+			HTML5 Event Source
+			Message Queues
+			Streaming over HTTP
+		HTTP Pull - Polling With AJAX: Instead of requesting the data manually every time with the click of a button, AJAX enables us to fetch the updated data from the server by automatically sending the requests over and over at stipulated intervals.
+
+		HTTP Push: Time to Live (TTL)#In the regular client-server communication, which is HTTP PULL, there is a Time to Live (TTL) for every request. It could be 30 secs to 60 secs, varying from browser to browser.
+
+			Open connections consume resources, and there is a limit to the number of open connections a server can handle at one point. If the connections don’t close and new ones are introduced regularly over time, the server will run out of memory. Hence, the TTL is used in client-server communication.
+
+			Heartbeat interceptors# The connection between the client and the server stays open with the help of Heartbeat Interceptors. These are just blank request responses between the client and the server to prevent the browser from killing the connection.
+
+			?Resource intensive# Yes, browser-based multiplayer game has a pretty large amount of request-response activity within a limited time than a regular web application. Long opened connections can be implemented by multiple techniques such as AJAX Long Polling, Web Sockets, Server-Sent Events, etc.
+
+		Web Sockets#: Typical use-cases of web sockets are messaging, chat applications, real-time social streams, browser-based massive multiplayer games, etc. These are apps with quite a significant number of read writes compared to a regular web app.
+			With web sockets, we can keep the client-server connection open as long as we want.
+
+			Have bi-directional data? Go ahead with web sockets. One more thing, web sockets don’t work over HTTP. The mechanism runs over TCP. Also, the server and the client should both support web sockets. Else it won’t work.
+
+
+	Use cases for server-side & client-side rendering#
+
+		To cut down all this rendering time on the client[Website render], developers often render the UI on the server, generate HTML there and directly send the HTML page to the UI.
+
+		Also, once the number of concurrent users on the website goes up, server-side rendering will exert an unnecessary load on the server.
+
+		we can leverage a hybrid approach to get the best of both worlds. We can use server-side rendering for the static content of our website and client-side rendering for dynamic content.
+
+* Scalability
+	Scalability means the application’s ability to handle and withstand increased workload without sacrificing performance. if your app takes x seconds to respond to a user request. It should take the same x seconds to respond to each of your app’s million concurrent user requests.
+
+	Latency is the time a system takes to respond to a user request.
+	This latency is generally divided into two parts:
+
+		Network latency: Network latency is the time that the network takes to send a data packet from point A to point B. To cut down the network latency, businesses use a CDN (Content Delivery Network) to deploy their servers across the globe as close to the end-user [ Edge Location ]as possible.
+
+		Application latency: Application latency is the time the application takes to process a user request. There are more than a few ways to cut down the application latency. The first step is to run stress and load tests on the application and scan for the bottlenecks that slow down the system as a whole.
+
+	There are two ways to scale an application:
+		Vertically: Adding more power to our server. Increase the current server Ram/Rom.
+		Horizontally: Adding more hardware to the existing hardware resource pool. Earlier 1 now 3.
+
+		A significant downside of vertical scaling is the availability risk. The servers are powerful but few in number. There is always a risk of them going down and the entire website going offline, which doesn’t happen when the system is scaled horizontally. In this scenario, the system is more highly available.
+
+		When writing applications for distributed systems, it’s a good practice to avoid using static instances in the class. The state is typically persisted in a distributed memory store; this facilitates components to be stateless
+
+		Make wise use of database partitioning, sharding with multiple database servers to make your system efficient.
+
+
+		Primary Bottlenecks That Hurt the Scalability of our Application:
+			Database
+			Application design
+			Not using caching in the application wisely
+			Inefficient configuration and setup of load balancers
+			Adding business logic to the database
+			Not picking the right database
+			At the code level
+		Ideally, we should always do a DENTTAL (Documentation, Exception Handling, Null pointers, Time complexity, Test coverage, Analysis of code complexity, Logging) check of our code when doing a dry run.
+
+	During the scalability testing, different system parameters are taken into account, such as:
+		CPU usage
+		Network bandwidth consumption
+		Throughput
+		Number of requests processed within a stipulated time
+		Latency
+		Memory usage of the program
+		End-user experience when the system is under heavy load and so on.
+
+		Several load and stress tests are run on the application, Tools like JMeter are pretty popular for running concurrent user tests on the application.
+
+* High Availability
+	High availability ensures the service’s uptime is much more than usual. It improves the reliability of the system and ensures minimum downtime.
+	Systems are designed fault-tolerant and redundancy in distributed systems.
+
+	Another reason for system failure is hardware crashes, including overloaded CPU and RAM, hard disk failures, nodes going down, and network outages.
+	Besides the unplanned crashes, there are planned downtimes that involve routine maintenance operations, patching software, hardware upgrades, etc.
+
+	So, to achieve high availability at the application level, the entire massive service is architecturally broken down into more granular loosely coupled services called microservices.
+
+	There are many upsides of splitting a big monolith into several microservices:
+		Easy management and maintenance
+		Ease of development
+		Ease of adding new features to a service without affecting other services
+		Scalability and high availability of the system
+
+	Redundancy – Active-passive HA mode#: Redundancy is duplicating the server instances and keeping them on standby to take over in case any of the active server instances go down. It is the fail-safe backup mechanism in the deployment infrastructure.
+
+	Replication: Replication means having a number of similar nodes running the workload together. There are no standby or passive instances. When a single or a few nodes go down, the remaining nodes bear the load of the service.
+
+	High Availability Clustering:
+	A single state across all the nodes in a cluster is achieved with the help of a shared distributed memory and a distributed coordination service like the Zookeeper.
+
+	Monitoring and automation#:
+		Systems should be well monitored in real-time to detect any bottlenecks or single point of failures. Automation enables the instances to self-recover without any human intervention. It gives the instances the power of self-healing.
+		Also, the systems become intelligent enough to add or remove instances on the fly as per the requirements. Kubernetes is one good example of this.
+
+* Load Balancing
+	Load balancing enables our service to scale well and stay highly available when the traffic load increases.
+
+	Load balancer maintains a list of machines that are up and running in the cluster in real-time. Machines that are up and running in the cluster are known as in-service machines, and the servers that are down are known as out-of-service instances.
+
+	There are primarily three modes of load balancing:
+	DNS Load Balancing
+	Hardware-based Load Balancing
+	Software-based Load Balancing:
+
+	Software load balancers are pretty advanced compared to DNS load balancing. They consider many parameters such as data hosted by the servers, cookies, HTTP headers, CPU and memory utilization, load on the network, etc., to route traffic across the servers.
+
+	They also continually perform health checks on the servers to keep an updated list of in-service machines.
+
+	-> Weighted round robin: where based on the server’s compute and traffic handling capacity, weights are assigned to them. And then, based on server weights, traffic is routed to them using the round robin algorithm.
+
+	-> Least connections#: When using this algorithm, the traffic is routed to the machine with the least open connections of all the machines in the cluster.
+	   The least connections approach comes in handy when the server has long opened connections like persistent connections in a gaming application.
+
+	-> Hash#: In this approach, the source IP where the request is coming from and the request URL are hashed to route the traffic to the backend servers.
+	   Hashing a URL ensures that the request with that URL always hits a certain cache that already has data on it. This is to ensure that there is no cache miss.
+
+* Domain name system#
+	Domain name system, commonly known as DNS, is a system that averts the need to remember long IP addresses to visit a website by mapping easy-to-remember domain names to IP addresses.
+
+	Four key components, or a group of servers, make up the DNS infrastructure. These are:
+		DNS Recursive nameserver aka DNS Resolver
+		Root nameserver
+		Top-Level Domain nameserver
+		Authoritative nameserver
+
+		The whole DNS system is a distributed system setup in large data centers managed by internet service providers. These data centers contain clusters of servers optimized to process DNS queries in minimal time in milliseconds.
+
+		The DNS Recursive nameserver is generally managed by our ISP (Internet service provider).
+
+		-> The role of DNS Resolver is to receive the client request and forward it to the Root nameserver to get the address of the Top-Level domain nameserver.
+		-> Once the DNS Resolver receives the address of the top-level domain nameserver, it sends a request to it to fetch the details of the domain name.
+		-> Top Level domain nameservers hold the info about authoritative domain servers and know the names and IP addresses of each authoritative name server.
+		-> Then, DNS Resolver fires a query to the Authoritative nameserver, and it returns the IP address of the amazon.com website to the DNS Resolver.
+
+		Often all this DNS information is cached, and the DNS servers don’t have to do so much rerouting every time a client requests an IP of a certain website.
+
+	DNS Load Balancing, which is set up at the DNS level on the authoritative server:
+		Every time it receives a query for an IP, it returns a list of IP addresses of a domain to the client. With every request, the authoritative server changes the order of the IP addresses in the list in a round-robin fashion.
+
+		Also, when the client hits an IP, it may not necessarily hit an application server. Instead, it may hit another load balancer implemented at the data center level that manages the clusters of application servers.
+
+		DNS load balancing is largely used by companies to distribute traffic across multiple data centers that the application runs in. However, this approach has several limitations.
+
+		Also, since these IP addresses are cached by the client’s machine and the DNS Resolver, there is always a possibility of a request being routed to a machine that is out of service.
+========================================= ------ ================================================
+
+CloudComputing: https://www.educative.io/courses/cloud-computing-101-master-the-fundamentals

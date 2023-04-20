@@ -14,12 +14,12 @@ public class TodoList {
     }
 
     public void print(){
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(i + 1 + ": " + tasks.get(i));
+        for (int i = 0; i < this.tasks.size(); i++) {
+            System.out.println(i + 1 + ": " + this.tasks.get(i));
         }
     }
     public void remove(int number){
-        tasks.remove(number-1);
+        this.tasks.remove(number-1);
     }
 
 }
